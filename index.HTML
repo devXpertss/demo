@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>devXperts travels - Premium Car Rental & Tourism Services</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #ffd700;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23667eea" width="1200" height="600"/><circle fill="%23764ba2" cx="200" cy="150" r="80"/><circle fill="%23f093fb" cx="800" cy="300" r="120"/><circle fill="%23f5576c" cx="1000" cy="100" r="60"/><path fill="%23ffd700" d="M100,400 Q300,350 500,400 T900,400 L900,600 L100,600 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 4rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-form {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .autocomplete-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        .suggestion-item:hover {
+            background: #f8f9fa;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 100%;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .search-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Recommendations */
+        .recommendations {
+            margin-top: 2rem;
+        }
+
+        .recommendations h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .recommendation-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .recommendation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .recommendation-card h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .map-container {
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            background: #e9ecef;
+            margin-bottom: 2rem;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .route-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .route-info.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .route-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .route-detail {
+            padding: 1rem;
+        }
+
+        .route-detail h3 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .route-detail p {
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Fleet Section */
+        .fleet-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .car-image {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .car-info {
+            padding: 2rem;
+        }
+
+        .car-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .car-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .car-features li {
+            padding: 0.3rem 0;
+            color: #666;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .car-features li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .pricing {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-option {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .price-option h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .book-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Fare Breakdown */
+        .fare-breakdown {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .fare-breakdown.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .fare-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .fare-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #667eea;
+        }
+
+        /* Tourist Places */
+        .places-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .place-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .place-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .place-image {
+            height: 200px;
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .place-info {
+            padding: 1.5rem;
+        }
+
+        .place-info h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .place-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #ffd700;
+            margin-right: 0.5rem;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .reviewer-info h4 {
+            margin-bottom: 0.2rem;
+        }
+
+        .review-rating {
+            color: #ffd700;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            padding: 0.3rem 0;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffd700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mobile-First Responsive Design */
+        @media (max-width: 768px) {
+            /* Header Mobile Optimization */
+            .header {
+                padding: 0.8rem 0;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #667eea;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 1001;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 0.5rem 0;
+            }
+
+            .nav-menu a {
+                font-size: 1.1rem;
+                padding: 0.5rem;
+                display: block;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                font-size: 1.8rem;
+                padding: 0.5rem;
+            }
+
+            /* Hero Section Mobile */
+            .hero {
+                height: 80vh;
+                margin-top: 70px;
+                padding: 2rem 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+            }
+
+            .cta-button {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+                width: 90%;
+                max-width: 300px;
+            }
+
+            /* Container Mobile */
+            .container {
+                padding: 0 1rem;
+            }
+
+            /* Section Titles Mobile */
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+                padding: 0 1rem;
+                text-align: center;
+            }
+
+            /* Search Section Mobile */
+            .search-section {
+                padding: 2rem 0;
+            }
+
+            .search-form {
+                padding: 1.5rem;
+                margin: 0 1rem;
+                border-radius: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-group input {
+                padding: 1rem;
+                font-size: 1rem;
+                border-radius: 8px;
+            }
+
+            .search-btn {
+                padding: 1.2rem;
+                font-size: 1rem;
+                margin-top: 1rem;
+            }
+
+            /* Autocomplete Mobile */
+            .autocomplete-suggestions {
+                max-height: 150px;
+                font-size: 0.9rem;
+            }
+
+            .suggestion-item {
+                padding: 0.8rem;
+            }
+
+            /* Recommendations Mobile */
+            .recommendations {
+                margin: 1rem;
+            }
+
+            .recommendation-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .recommendation-card {
+                padding: 0.8rem;
+                border-radius: 8px;
+            }
+
+            .recommendation-card h4 {
+                font-size: 0.9rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .recommendation-card p {
+                font-size: 0.8rem;
+            }
+
+            /* Map Section Mobile */
+            .map-section {
+                padding: 2rem 0;
+            }
+
+            .map-container {
+                height: 300px;
+                margin: 0 1rem 1rem 1rem;
+                border-radius: 15px;
+            }
+
+            .route-info {
+                margin: 0 1rem;
+                padding: 1.5rem;
+                border-radius: 10px;
+            }
+
+            .route-details {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .route-detail h3 {
+                font-size: 1.5rem;
+            }
+
+            .fare-breakdown {
+                margin: 1rem;
+                padding: 1.5rem;
+                border-radius: 10px;
+            }
+
+            .fare-item {
+                padding: 0.8rem 0;
+                font-size: 0.9rem;
+            }
+
+            /* Fleet Section Mobile */
+            .fleet-section {
+                padding: 2rem 0;
+            }
+
+            .fleet-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 0 1rem 2rem 1rem;
+            }
+
+            .car-card {
+                border-radius: 15px;
+            }
+
+            .car-image {
+                height: 150px;
+                font-size: 3rem;
+            }
+
+            .car-info {
+                padding: 1.5rem;
+            }
+
+            .car-info h3 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+
+            .car-features {
+                margin-bottom: 1rem;
+            }
+
+            .car-features li {
+                font-size: 0.9rem;
+                padding: 0.2rem 0;
+            }
+
+            .pricing {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .price-option {
+                padding: 0.8rem;
+                border-radius: 8px;
+            }
+
+            .price-option h4 {
+                font-size: 0.8rem;
+            }
+
+            .price {
+                font-size: 1.1rem;
+            }
+
+            .book-btn {
+                padding: 1rem;
+                font-size: 1rem;
+                border-radius: 8px;
+            }
+
+            /* Places Section Mobile */
+            .places-section {
+                padding: 2rem 0;
+            }
+
+            .places-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 0 1rem;
+            }
+
+            .place-card {
+                border-radius: 12px;
+            }
+
+            .place-image {
+                height: 150px;
+                font-size: 2.5rem;
+            }
+
+            .place-info {
+                padding: 1.2rem;
+            }
+
+            .place-info h3 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .place-rating {
+                margin-bottom: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .place-info p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            /* Reviews Section Mobile */
+            .reviews-section {
+                padding: 2rem 0;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 0 1rem;
+            }
+
+            .review-card {
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+
+            .reviewer-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+
+            .reviewer-info h4 {
+                font-size: 1rem;
+            }
+
+            .review-card p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            /* Contact Section Mobile */
+            .contact-section {
+                padding: 2rem 0;
+            }
+
+            .contact-form {
+                margin: 0 1rem;
+                padding: 2rem 1.5rem;
+                border-radius: 15px;
+            }
+
+            .contact-form textarea {
+                min-height: 100px;
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            /* Banner Mobile */
+            .banner {
+                margin: 1rem;
+                padding: 1.5rem;
+                border-radius: 12px;
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+
+            /* Footer Mobile */
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin: 0 1rem 2rem 1rem;
+            }
+
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-section h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .footer-section ul li {
+                padding: 0.4rem 0;
+                font-size: 0.9rem;
+            }
+
+            .footer-bottom {
+                padding: 1.5rem 1rem 0;
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            /* Notification Mobile */
+            .notification-mobile {
+                position: fixed !important;
+                top: 80px !important;
+                left: 1rem !important;
+                right: 1rem !important;
+                max-width: none !important;
+                border-radius: 8px !important;
+                font-size: 0.9rem !important;
+            }
+        }
+
+        /* Extra Small Mobile Devices */
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .recommendation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recommendation-card {
+                text-align: center;
+            }
+
+            .car-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .place-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .banner {
+                font-size: 0.9rem;
+                padding: 1.2rem;
+            }
+        }
+
+        /* Landscape Mobile Orientation */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                height: 100vh;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-content p {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .map-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">🚗 devXperts travels</div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#fleet">Fleet</a></li>
+                    <li><a href="#places">Places</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Explore India with devXperts travels</h1>
+            <p>Premium car rental services with expert drivers and unforgettable experiences</p>
+            <button class="cta-button" onclick="scrollToSection('search')">Start Your Journey</button>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="search-section">
+        <div class="container">
+            <h2 class="section-title">Plan Your Perfect Trip</h2>
+            <div class="search-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pickup">Pickup Location</label>
+                        <input type="text" id="pickup" placeholder="Enter pickup location">
+                        <div class="autocomplete-suggestions" id="pickupSuggestions"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination" placeholder="Enter destination">
+                        <div class="autocomplete-suggestions" id="destinationSuggestions"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Travel Date</label>
+                        <input type="date" id="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Travel Time</label>
+                        <input type="time" id="time">
+                    </div>
+                </div>
+                <button class="search-btn" id="searchBtn" onclick="findRoute()">
+                    🗺️ Find Route & Book Now
+                </button>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="recommendations">
+                <h3>🌟 Popular Destinations</h3>
+                <div class="recommendation-grid">
+                    <div class="recommendation-card" onclick="selectDestination('Taj Mahal, Agra')">
+                        <h4>🕌 Taj Mahal</h4>
+                        <p>Agra • 3 hours from Delhi</p>
+                    </div>
+                    <div class="recommendation-card" onclick="selectDestination('Jaipur, Rajasthan')">
+                        <h4>🏰 Jaipur</h4>
+                        <p>Pink City • 4 hours from Delhi</p>
+                    </div>
+                    <div class="recommendation-card" onclick="selectDestination('Manali, Himachal Pradesh')">
+                        <h4>🏔️ Manali</h4>
+                        <p>Hill Station • 12 hours from Delhi</p>
+                    </div>
+                    <div class="recommendation-card" onclick="selectDestination('Goa')">
+                        <h4>🏖️ Goa</h4>
+                        <p>Beach Paradise • 14 hours from Mumbai</p>
+                    </div>
+                    <div class="recommendation-card" onclick="selectDestination('Kerala Backwaters')">
+                        <h4>🌊 Kerala</h4>
+                        <p>Backwaters • God\'s Own Country</p>
+                    </div>
+                    <div class="recommendation-card" onclick="selectDestination('Rishikesh, Uttarakhand')">
+                        <h4>🧘 Rishikesh</h4>
+                        <p>Yoga Capital • 5 hours from Delhi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map-section" class="map-section">
+        <div class="container">
+            <h2 class="section-title">Interactive Route Map</h2>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+            
+            <!-- Route Information -->
+            <div class="route-info" id="routeInfo">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: #667eea;">Route Details</h3>
+                <div class="route-details">
+                    <div class="route-detail">
+                        <h3 id="routeDistance">--</h3>
+                        <p>Total Distance</p>
+                    </div>
+                    <div class="route-detail">
+                        <h3 id="routeDuration">--</h3>
+                        <p>Estimated Time</p>
+                    </div>
+                    <div class="route-detail">
+                        <h3 id="estimatedFare">--</h3>
+                        <p>Estimated Fare</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fare Breakdown -->
+            <div class="fare-breakdown" id="fareBreakdown">
+                <h3 style="margin-bottom: 1rem; color: #667eea;">Fare Breakdown (Mini Car)</h3>
+                <div class="fare-item">
+                    <span>Base Fare (Per KM)</span>
+                    <span id="baseFare">₹0</span>
+                </div>
+                <div class="fare-item">
+                    <span>Driver Allowance</span>
+                    <span>₹300/day</span>
+                </div>
+                <div class="fare-item">
+                    <span>Toll & Parking</span>
+                    <span>Extra</span>
+                </div>
+                <div class="fare-item">
+                    <span>Night Charges (10 PM - 6 AM)</span>
+                    <span>25% Extra</span>
+                </div>
+                <div class="fare-item">
+                    <span><strong>Total Estimated</strong></span>
+                    <span id="totalFare"><strong>₹0</strong></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section id="fleet" class="fleet-section">
+        <div class="container">
+            <div class="banner">
+                🚗 Choose Your Perfect Ride - Premium Fleet Available 24/7 🚗
+            </div>
+            <h2 class="section-title">Our Premium Fleet</h2>
+            
+            <div class="fleet-grid">
+                <!-- Mini Car -->
+                <div class="car-card">
+                    <div class="car-image">🚙</div>
+                    <div class="car-info">
+                        <h3>Mini Car - Economy</h3>
+                        <ul class="car-features">
+                            <li>Perfect for city rides</li>
+                            <li>2-4 passengers</li>
+                            <li>AC & Music System</li>
+                            <li>GPS Navigation</li>
+                            <li>Fuel efficient</li>
+                        </ul>
+                        <div class="pricing">
+                            <div class="price-option">
+                                <h4>Per KM Rate</h4>
+                                <div class="price">₹12/km</div>
+                            </div>
+                            <div class="price-option">
+                                <h4>Petrol Basis</h4>
+                                <div class="price">₹8/km + Fuel</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookCar('Mini Car', 12, 8)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Sedan -->
+                <div class="car-card">
+                    <div class="car-image">🚗</div>
+                    <div class="car-info">
+                        <h3>Sedan - Comfort</h3>
+                        <ul class="car-features">
+                            <li>Comfortable for long trips</li>
+                            <li>4-5 passengers</li>
+                            <li>Premium interiors</li>
+                            <li>Climate control</li>
+                            <li>Phone charging ports</li>
+                        </ul>
+                        <div class="pricing">
+                            <div class="price-option">
+                                <h4>Per KM Rate</h4>
+                                <div class="price">₹15/km</div>
+                            </div>
+                            <div class="price-option">
+                                <h4>Petrol Basis</h4>
+                                <div class="price">₹10/km + Fuel</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookCar('Sedan', 15, 10)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- SUV -->
+                <div class="car-card">
+                    <div class="car-image">🚐</div>
+                    <div class="car-info">
+                        <h3>SUV - Premium</h3>
+                        <ul class="car-features">
+                            <li>Spacious & luxurious</li>
+                            <li>6-7 passengers</li>
+                            <li>Extra luggage space</li>
+                            <li>Premium sound system</li>
+                            <li>Leather seats</li>
+                        </ul>
+                        <div class="pricing">
+                            <div class="price-option">
+                                <h4>Per KM Rate</h4>
+                                <div class="price">₹20/km</div>
+                            </div>
+                            <div class="price-option">
+                                <h4>Petrol Basis</h4>
+                                <div class="price">₹12/km + Fuel</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookCar('SUV', 20, 12)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Luxury Car -->
+                <div class="car-card">
+                    <div class="car-image">🏎️</div>
+                    <div class="car-info">
+                        <h3>Luxury Car - Elite</h3>
+                        <ul class="car-features">
+                            <li>Ultimate luxury experience</li>
+                            <li>4-5 passengers</li>
+                            <li>Premium amenities</li>
+                            <li>Professional chauffeur</li>
+                            <li>Complimentary refreshments</li>
+                        </ul>
+                        <div class="pricing">
+                            <div class="price-option">
+                                <h4>Per KM Rate</h4>
+                                <div class="price">₹35/km</div>
+                            </div>
+                            <div class="price-option">
+                                <h4>Petrol Basis</h4>
+                                <div class="price">₹25/km + Fuel</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookCar('Luxury Car', 35, 25)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Tempo Traveller -->
+                <div class="car-card">
+                    <div class="car-image">🚌</div>
+                    <div class="car-info">
+                        <h3>Tempo Traveller - Group</h3>
+                        <ul class="car-features">
+                            <li>Perfect for group travel</li>
+                            <li>12-17 passengers</li>
+                            <li>Ample luggage space</li>
+                            <li>Entertainment system</li>
+                            <li>Comfortable seating</li>
+                        </ul>
+                        <div class="pricing">
+                            <div class="price-option">
+                                <h4>Per KM Rate</h4>
+                                <div class="price">₹25/km</div>
+                            </div>
+                            <div class="price-option">
+                                <h4>Petrol Basis</h4>
+                                <div class="price">₹18/km + Fuel</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookCar('Tempo Traveller', 25, 18)">Book Now</button>
+                    </div>
+                </div>
+
+                <!-- Mini Bus -->
+                <div class="car-card">
+                    <div class="car-image">🚍</div>
+                    <div class="car-info">
+                        <h3>Mini Bus - Large Group</h3>
+                        <ul class="car-features">
+                            <li>Large group transportation</li>
+                            <li>25-35 passengers</li>
+                            <li>Air conditioning</li>
+                            <li>Reclining seats</li>
+                            <li>Professional driver</li>
+                        </ul>
+                        <div class="pricing">
+                            <div class="price-option">
+                                <h4>Per KM Rate</h4>
+                                <div class="price">₹30/km</div>
+                            </div>
+                            <div class="price-option">
+                                <h4>Petrol Basis</h4>
+                                <div class="price">₹22/km + Fuel</div>
+                            </div>
+                        </div>
+                        <button class="book-btn" onclick="bookCar('Mini Bus', 30, 22)">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="banner" style="background: linear-gradient(45deg, #28a745, #20c997);">
+                💰 Transparent Pricing • No Hidden Charges • 24/7 Support • Professional Drivers 💰
+            </div>
+            
+            <div class="banner" style="background: linear-gradient(45deg, #667eea, #764ba2); margin-top: 2rem;">
+                👨‍💻 Website Developed by <strong>Aklavya Verma</strong> | Handled by <strong>Ishesh Goswami</strong> | devXperts travels Team 👨‍💻
+            </div>
+        </div>
+    </section>
+
+    <!-- Tourist Places Section -->
+    <section id="places" class="places-section">
+        <div class="container">
+            <h2 class="section-title">Popular Tourist Destinations</h2>
+            
+            <div class="places-grid">
+                <div class="place-card">
+                    <div class="place-image">🏰</div>
+                    <div class="place-info">
+                        <h3>Red Fort, Delhi</h3>
+                        <div class="place-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.8/5 (2,450 reviews)</span>
+                        </div>
+                        <p>Historic Mughal fortress and UNESCO World Heritage Site. Experience the grandeur of Mughal architecture.</p>
+                        <p><strong>Best Time:</strong> October to March</p>
+                    </div>
+                </div>
+
+                <div class="place-card">
+                    <div class="place-image">🕌</div>
+                    <div class="place-info">
+                        <h3>Taj Mahal, Agra</h3>
+                        <div class="place-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.9/5 (5,200 reviews)</span>
+                        </div>
+                        <p>Symbol of eternal love and one of the Seven Wonders of the World. Marvel at this ivory-white marble mausoleum.</p>
+                        <p><strong>Best Time:</strong> Sunrise or Sunset</p>
+                    </div>
+                </div>
+
+                <div class="place-card">
+                    <div class="place-image">🏔️</div>
+                    <div class="place-info">
+                        <h3>Kashmir Valley</h3>
+                        <div class="place-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.7/5 (1,800 reviews)</span>
+                        </div>
+                        <p>Paradise on Earth with stunning landscapes, houseboats, and snow-capped mountains.</p>
+                        <p><strong>Best Time:</strong> April to October</p>
+                    </div>
+                </div>
+
+                <div class="place-card">
+                    <div class="place-image">🏖️</div>
+                    <div class="place-info">
+                        <h3>Goa Beaches</h3>
+                        <div class="place-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.6/5 (3,100 reviews)</span>
+                        </div>
+                        <p>Tropical paradise with golden beaches, vibrant nightlife, and Portuguese heritage.</p>
+                        <p><strong>Best Time:</strong> November to February</p>
+                    </div>
+                </div>
+
+                <div class="place-card">
+                    <div class="place-image">🏛️</div>
+                    <div class="place-info">
+                        <h3>Jaipur - Pink City</h3>
+                        <div class="place-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.5/5 (2,800 reviews)</span>
+                        </div>
+                        <p>Royal heritage city with magnificent palaces, forts, and vibrant culture.</p>
+                        <p><strong>Best Time:</strong> October to March</p>
+                    </div>
+                </div>
+
+                <div class="place-card">
+                    <div class="place-image">🌊</div>
+                    <div class="place-info">
+                        <h3>Kerala Backwaters</h3>
+                        <div class="place-rating">
+                            <span class="stars">⭐⭐⭐⭐⭐</span>
+                            <span>4.8/5 (2,200 reviews)</span>
+                        </div>
+                        <p>Serene network of canals, rivers, and lakes. Experience traditional houseboats.</p>
+                        <p><strong>Best Time:</strong> September to March</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">PK</div>
+                        <div class="reviewer-info">
+                            <h4>Priya Kapoor</h4>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Excellent service! The driver was very knowledgeable about local attractions and took us to amazing restaurants. The car was clean and comfortable. Highly recommended!"</p>
+                    <p><strong>Trip:</strong> Delhi-Agra-Jaipur</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">AS</div>
+                        <div class="reviewer-info">
+                            <h4>Amit Singh</h4>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Booked a tempo traveller for our family trip to Manali. The driver was punctual, drove safely through mountain roads, and was very helpful. Great value for money!"</p>
+                    <p><strong>Trip:</strong> Delhi-Manali</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">SK</div>
+                        <div class="reviewer-info">
+                            <h4>Sneha Kulkarni</h4>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Used TravelEase for airport pickup and city tour. The sedan was luxurious, and the per-km pricing was transparent. No hidden charges at all!"</p>
+                    <p><strong>Trip:</strong> Mumbai City Tour</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">RG</div>
+                        <div class="reviewer-info">
+                            <h4>Rohit Gupta</h4>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Fantastic experience with Kerala backwater tour. The driver spoke excellent English and helped us with local cuisine recommendations. Perfect service!"</p>
+                    <p><strong>Trip:</strong> Kerala Backwaters</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">MJ</div>
+                        <div class="reviewer-info">
+                            <h4>Meera Joshi</h4>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Booked last minute for Goa trip. Everything was arranged quickly, picked us up on time, and even suggested great beaches. Truly professional!"</p>
+                    <p><strong>Trip:</strong> Mumbai-Goa</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">DM</div>
+                        <div class="reviewer-info">
+                            <h4>Deepak Mehta</h4>
+                            <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Corporate booking for client visit. Luxury car service was impeccable. The driver was well-dressed, punctual, and maintained complete professionalism."</p>
+                    <p><strong>Trip:</strong> Delhi Corporate Tour</p>
+                </div>
+            </div>
+
+            <div class="banner" style="background: linear-gradient(45deg, #f093fb, #f5576c);">
+                🏆 4.8/5 Average Rating • 10,000+ Happy Customers • 99% On-Time Performance 🏆
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            
+            <div class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Type</label>
+                        <input type="text" id="service" placeholder="Car rental, tour package, etc.">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Tell us about your travel requirements"></textarea>
+                </div>
+                <button class="search-btn" onclick="sendMessage()">📨 Send Message</button>
+            </div>
+
+            <div class="banner">
+                📞 24/7 Support: +91-7464870444 | 📧 aklavyaverma6@gmail.com, devz.webs@gmail.com | 📍 Maliyan Street, Dehradun Saharanpur Chawk, Dehradun 248001, India
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>devXperts travels</h3>
+                    <p>Your trusted partner for premium car rental and tourism services across India. Experience comfort, safety, and reliability with every journey. Developed by Aklavya Verma, handled by Ishesh Goswami.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#fleet">Our Fleet</a></li>
+                        <li><a href="#places">Tourist Places</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Airport Transfers</a></li>
+                        <li><a href="#">City Tours</a></li>
+                        <li><a href="#">Outstation Trips</a></li>
+                        <li><a href="#">Corporate Bookings</a></li>
+                        <li><a href="#">Wedding Transportation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li>📞 +91-7464870444</li>
+                        <li>📧 aklavyaverma6@gmail.com</li>
+                        <li>📧 devz.webs@gmail.com</li>
+                        <li>📍 Maliyan Street, Dehradun Saharanpur Chawk</li>
+                        <li>📍 Dehradun 248001, India</li>
+                        <li>🕒 24/7 Support Available</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 devXperts travels. All rights reserved. | Developed by Aklavya Verma | Handled by Ishesh Goswami | Privacy Policy | Terms & Conditions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <script>
+        // Global variables
+        let map;
+        let routingControl;
+        let currentRoute = null;
+        let pickupMarker = null;
+        let destinationMarker = null;
+
+        // Initialize Leaflet Map
+        function initMap() {
+            // Initialize map centered on India
+            map = L.map('map').setView([20.5937, 78.9629], 5);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+            // Add some popular destination markers
+            addPopularDestinations();
+        }
+
+        // Initialize autocomplete for input fields using Nominatim
+        function initAutocomplete() {
+            const pickupInput = document.getElementById('pickup');
+            const destinationInput = document.getElementById('destination');
+            const pickupSuggestions = document.getElementById('pickupSuggestions');
+            const destinationSuggestions = document.getElementById('destinationSuggestions');
+
+            let pickupTimeout;
+            let destinationTimeout;
+
+            // Pickup autocomplete
+            pickupInput.addEventListener('input', function() {
+                clearTimeout(pickupTimeout);
+                const query = this.value;
+                
+                if (query.length < 3) {
+                    pickupSuggestions.style.display = 'none';
+                    return;
+                }
+
+                pickupTimeout = setTimeout(() => {
+                    searchLocation(query, pickupSuggestions, pickupInput);
+                }, 300);
+            });
+
+            // Destination autocomplete
+            destinationInput.addEventListener('input', function() {
+                clearTimeout(destinationTimeout);
+                const query = this.value;
+                
+                if (query.length < 3) {
+                    destinationSuggestions.style.display = 'none';
+                    return;
+                }
+
+                destinationTimeout = setTimeout(() => {
+                    searchLocation(query, destinationSuggestions, destinationInput);
+                }, 300);
+            });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!pickupInput.contains(e.target) && !pickupSuggestions.contains(e.target)) {
+                    pickupSuggestions.style.display = 'none';
+                }
+                if (!destinationInput.contains(e.target) && !destinationSuggestions.contains(e.target)) {
+                    destinationSuggestions.style.display = 'none';
+                }
+            });
+        }
+
+        // Search location using Nominatim API
+        async function searchLocation(query, suggestionsContainer, inputField) {
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=in&limit=5`);
+                const results = await response.json();
+
+                suggestionsContainer.innerHTML = '';
+                
+                if (results.length > 0) {
+                    results.forEach(result => {
+                        const suggestionItem = document.createElement('div');
+                        suggestionItem.className = 'suggestion-item';
+                        suggestionItem.textContent = result.display_name;
+                        suggestionItem.addEventListener('click', () => {
+                            inputField.value = result.display_name;
+                            inputField.dataset.lat = result.lat;
+                            inputField.dataset.lon = result.lon;
+                            suggestionsContainer.style.display = 'none';
+                        });
+                        suggestionsContainer.appendChild(suggestionItem);
+                    });
+                    suggestionsContainer.style.display = 'block';
+                } else {
+                    suggestionsContainer.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Location search error:', error);
+                suggestionsContainer.style.display = 'none';
+            }
+        }
+
+        // Add popular destination markers
+        function addPopularDestinations() {
+            const destinations = [
+                { lat: 28.6139, lng: 77.2090, name: "New Delhi", icon: "🏛️" },
+                { lat: 27.1751, lng: 78.0421, name: "Taj Mahal, Agra", icon: "🕌" },
+                { lat: 26.9124, lng: 75.7873, name: "Jaipur", icon: "🏰" },
+                { lat: 15.2993, lng: 74.1240, name: "Goa", icon: "🏖️" },
+                { lat: 9.9312, lng: 76.2673, name: "Kochi, Kerala", icon: "🌊" },
+                { lat: 32.2432, lng: 77.1892, name: "Manali", icon: "🏔️" }
+            ];
+
+            destinations.forEach(dest => {
+                const customIcon = L.divIcon({
+                    html: `<div style="background: #f093fb; border: 2px solid white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">${dest.icon}</div>`,
+                    className: 'custom-marker',
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                });
+
+                const marker = L.marker([dest.lat, dest.lng], { icon: customIcon }).addTo(map);
+                
+                marker.bindPopup(`
+                    <div style="padding: 10px; text-align: center;">
+                        <h4 style="margin: 0 0 10px 0; color: #333;">${dest.name}</h4>
+                        <button onclick="selectDestination('${dest.name}', ${dest.lat}, ${dest.lng})" 
+                                style="background: #667eea; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            Select as Destination
+                        </button>
+                    </div>
+                `);
+            });
+        }
+
+        // Find and display route
+        async function findRoute() {
+            const pickupInput = document.getElementById('pickup');
+            const destinationInput = document.getElementById('destination');
+            const pickup = pickupInput.value;
+            const destination = destinationInput.value;
+
+            if (!pickup || !destination) {
+                alert('Please enter both pickup and destination locations');
+                return;
+            }
+
+            const searchBtn = document.getElementById('searchBtn');
+            const originalText = searchBtn.innerHTML;
+            searchBtn.innerHTML = '<span class="loading"></span> Finding Best Route...';
+            searchBtn.disabled = true;
+
+            try {
+                let pickupCoords, destinationCoords;
+
+                // Get coordinates from dataset if available (from autocomplete)
+                if (pickupInput.dataset.lat && pickupInput.dataset.lon) {
+                    pickupCoords = [parseFloat(pickupInput.dataset.lat), parseFloat(pickupInput.dataset.lon)];
+                } else {
+                    pickupCoords = await geocodeLocation(pickup);
+                }
+
+                if (destinationInput.dataset.lat && destinationInput.dataset.lon) {
+                    destinationCoords = [parseFloat(destinationInput.dataset.lat), parseFloat(destinationInput.dataset.lon)];
+                } else {
+                    destinationCoords = await geocodeLocation(destination);
+                }
+
+                if (!pickupCoords || !destinationCoords) {
+                    throw new Error('Could not find coordinates for the locations');
+                }
+
+                // Clear existing route
+                if (routingControl) {
+                    map.removeControl(routingControl);
+                }
+
+                // Clear existing markers
+                if (pickupMarker) map.removeLayer(pickupMarker);
+                if (destinationMarker) map.removeLayer(destinationMarker);
+
+                // Add pickup and destination markers
+                const pickupIcon = L.divIcon({
+                    html: '<div style="background: #28a745; border: 2px solid white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">P</div>',
+                    className: 'pickup-marker',
+                    iconSize: [25, 25],
+                    iconAnchor: [12, 12]
+                });
+
+                const destinationIcon = L.divIcon({
+                    html: '<div style="background: #dc3545; border: 2px solid white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">D</div>',
+                    className: 'destination-marker',
+                    iconSize: [25, 25],
+                    iconAnchor: [12, 12]
+                });
+
+                pickupMarker = L.marker(pickupCoords, { icon: pickupIcon }).addTo(map);
+                destinationMarker = L.marker(destinationCoords, { icon: destinationIcon }).addTo(map);
+
+                pickupMarker.bindPopup(`<strong>Pickup:</strong> ${pickup}`);
+                destinationMarker.bindPopup(`<strong>Destination:</strong> ${destination}`);
+
+                // Create routing control
+                routingControl = L.Routing.control({
+                    waypoints: [
+                        L.latLng(pickupCoords[0], pickupCoords[1]),
+                        L.latLng(destinationCoords[0], destinationCoords[1])
+                    ],
+                    routeWhileDragging: false,
+                    addWaypoints: false,
+                    createMarker: function() { return null; }, // Don't create default markers
+                    lineOptions: {
+                        styles: [{ color: '#667eea', weight: 6, opacity: 0.8 }]
+                    },
+                    show: false, // Hide the routing instructions panel
+                    router: L.Routing.osrmv1({
+                        serviceUrl: 'https://router.project-osrm.org/route/v1'
+                    })
+                }).addTo(map);
+
+                // Listen for route found event
+                routingControl.on('routesfound', function(e) {
+                    const routes = e.routes;
+                    const summary = routes[0].summary;
+                    
+                    // Calculate distance and time
+                    const distance = (summary.totalDistance / 1000).toFixed(1); // Convert to km
+                    const duration = Math.round(summary.totalTime / 60); // Convert to minutes
+                    
+                    currentRoute = {
+                        distance: parseFloat(distance),
+                        duration: `${Math.floor(duration / 60)}h ${duration % 60}m`,
+                        distanceText: `${distance} km`
+                    };
+
+                    displayRouteInfo(currentRoute);
+                    
+                    // Fit map to route bounds
+                    const group = new L.featureGroup([pickupMarker, destinationMarker]);
+                    map.fitBounds(group.getBounds().pad(0.1));
+                    
+                    scrollToSection('map-section');
+                    
+                    // Show success message
+                    setTimeout(() => {
+                        showNotification('Route found successfully! Check the map and fare details below.', 'success');
+                    }, 500);
+                });
+
+                routingControl.on('routingerror', function(e) {
+                    throw new Error('Could not find route between locations');
+                });
+
+            } catch (error) {
+                console.error('Route finding error:', error);
+                showNotification('Unable to find route. Please check your locations and try again.', 'error');
+            } finally {
+                searchBtn.innerHTML = originalText;
+                searchBtn.disabled = false;
+            }
+        }
+
+        // Geocode location using Nominatim
+        async function geocodeLocation(locationName) {
+            try {
+                const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationName)}&countrycodes=in&limit=1`);
+                const results = await response.json();
+                
+                if (results.length > 0) {
+                    return [parseFloat(results[0].lat), parseFloat(results[0].lon)];
+                }
+                return null;
+            } catch (error) {
+                console.error('Geocoding error:', error);
+                return null;
+            }
+        }
+
+        // Display route information
+        function displayRouteInfo(route) {
+            document.getElementById('routeDistance').textContent = route.distanceText;
+            document.getElementById('routeDuration').textContent = route.duration;
+            
+            // Calculate estimated fare (using mini car rate)
+            const baseFarePerKm = 12;
+            const estimatedFare = Math.round(route.distance * baseFarePerKm);
+            document.getElementById('estimatedFare').textContent = `₹${estimatedFare}`;
+
+            // Update fare breakdown
+            document.getElementById('baseFare').textContent = `₹${Math.round(route.distance * baseFarePerKm)}`;
+            document.getElementById('totalFare').textContent = `₹${estimatedFare + 300}`;
+
+            // Show route info and fare breakdown
+            document.getElementById('routeInfo').classList.add('active');
+            document.getElementById('fareBreakdown').classList.add('active');
+        }
+
+        // Select destination from recommendations
+        function selectDestination(destination, lat = null, lng = null) {
+            const destinationInput = document.getElementById('destination');
+            destinationInput.value = destination;
+            
+            // Store coordinates if provided
+            if (lat && lng) {
+                destinationInput.dataset.lat = lat;
+                destinationInput.dataset.lon = lng;
+            }
+            
+            showNotification(`${destination} selected as destination!`, 'success');
+        }
+
+        // Book car function
+        function bookCar(carType, perKmRate, petrolRate) {
+            const pickup = document.getElementById('pickup').value;
+            const destination = document.getElementById('destination').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            if (!pickup || !destination) {
+                showNotification('Please select pickup and destination first!', 'error');
+                scrollToSection('search');
+                return;
+            }
+
+            let fareDetails = '';
+            if (currentRoute) {
+                const totalFare = Math.round(currentRoute.distance * perKmRate) + 300;
+                fareDetails = `\n\nFare Details:\nDistance: ${currentRoute.distanceText}\nBase Fare: ₹${Math.round(currentRoute.distance * perKmRate)}\nDriver Allowance: ₹300\nTotal: ₹${totalFare}`;
+            }
+
+            const bookingId = 'TE' + Math.floor(Math.random() * 100000);
+            
+            alert(`🚗 Booking Confirmed!\n\nBooking ID: ${bookingId}\nCar Type: ${carType}\nFrom: ${pickup}\nTo: ${destination}\nDate: ${date || 'Today'}\nTime: ${time || 'ASAP'}${fareDetails}\n\nOur driver will contact you shortly!\n\n📞 Support: +91-7464870444`);
+            
+            showNotification('Booking confirmed! You will receive a confirmation call shortly.', 'success');
+        }
+
+        // Send message function
+        function sendMessage() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !email || !phone || !message) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            // Simulate sending message
+            setTimeout(() => {
+                showNotification(`Thank you ${name}! Your message has been sent. We'll contact you within 24 hours.`, 'success');
+                
+                // Clear form
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('phone').value = '';
+                document.getElementById('service').value = '';
+                document.getElementById('message').value = '';
+            }, 1000);
+        }
+
+        // Utility functions
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            
+            // Check if mobile device
+            const isMobile = window.innerWidth <= 768;
+            
+            notification.style.cssText = `
+                position: fixed;
+                ${isMobile ? 'top: 80px; left: 1rem; right: 1rem; max-width: none;' : 'top: 100px; right: 20px; max-width: 300px;'}
+                background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#667eea'};
+                color: white;
+                padding: ${isMobile ? '1rem 1.5rem' : '1rem 2rem'};
+                border-radius: ${isMobile ? '8px' : '10px'};
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: ${isMobile ? 'slideInDown' : 'slideInRight'} 0.3s ease-out;
+                font-size: ${isMobile ? '0.9rem' : '1rem'};
+                text-align: center;
+            `;
+            notification.textContent = message;
+
+            // Add animation keyframes
+            if (!document.getElementById('notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideInRight {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOutRight {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                    @keyframes slideInDown {
+                        from { transform: translateY(-100%); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                    @keyframes slideOutUp {
+                        from { transform: translateY(0); opacity: 1; }
+                        to { transform: translateY(-100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            document.body.appendChild(notification);
+
+            // Remove notification after 4 seconds
+            setTimeout(() => {
+                notification.style.animation = `${isMobile ? 'slideOutUp' : 'slideOutRight'} 0.3s ease-out`;
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map and autocomplete
+            initMap();
+            initAutocomplete();
+
+            // Set current date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').value = today;
+
+            // Add smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        // Close mobile menu after clicking
+                        const navMenu = document.getElementById('navMenu');
+                        if (navMenu.classList.contains('active')) {
+                            navMenu.classList.remove('active');
+                        }
+                    }
+                });
+            });
+
+            // Improve mobile touch interactions
+            if (window.innerWidth <= 768) {
+                // Add touch feedback for buttons
+                document.querySelectorAll('button, .recommendation-card, .car-card, .place-card').forEach(element => {
+                    element.addEventListener('touchstart', function() {
+                        this.style.transform = 'scale(0.98)';
+                    });
+                    
+                    element.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 100);
+                    });
+                });
+
+                // Prevent zoom on input focus
+                document.querySelectorAll('input, textarea').forEach(input => {
+                    input.addEventListener('focus', function() {
+                        document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+                    });
+                    
+                    input.addEventListener('blur', function() {
+                        document.querySelector('meta[name=viewport]').setAttribute('content', 'width=device-width, initial-scale=1.0');
+                    });
+                });
+            }
+
+            // Add fade-in animation to elements as they come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards and sections
+            document.querySelectorAll('.car-card, .place-card, .review-card, .recommendation-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Add Enter key support for search
+            document.getElementById('pickup').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') findRoute();
+            });
+            
+            document.getElementById('destination').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') findRoute();
+            });
+        });
+
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97fa46ad442995ae',t:'MTc1Nzk2MTg3My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
