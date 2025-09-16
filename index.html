@@ -1,0 +1,2319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevXpert - Building the Future of Web & App Development</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Page System */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(120, 119, 198, 0.3);
+            padding: 1rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .theme-toggle {
+            background: rgba(120, 119, 198, 0.2);
+            border: 1px solid rgba(120, 119, 198, 0.5);
+            border-radius: 20px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(120, 119, 198, 0.3);
+            box-shadow: 0 0 15px rgba(120, 119, 198, 0.4);
+        }
+        
+        .instagram-link {
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .instagram-link img {
+            width: 24px;
+            height: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .instagram-link:hover img {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(255, 119, 198, 0.6));
+        }
+        
+        /* Light Theme */
+        body.light-theme {
+            background: #f0f4f8;
+            color: #2d3748;
+        }
+        
+        body.light-theme .animated-bg {
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 128, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(64, 224, 208, 0.2) 0%, transparent 50%);
+        }
+        
+        body.light-theme header {
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+        }
+        
+        body.light-theme .nav-links a {
+            color: #2d3748;
+        }
+        
+        body.light-theme .nav-links a:hover {
+            color: #00ffff;
+        }
+        
+        body.light-theme .service-category,
+        body.light-theme .contact-form,
+        body.light-theme .feature-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #2d3748;
+        }
+        
+        body.light-theme .service-card {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: #2d3748;
+        }
+        
+        body.light-theme .service-card:hover {
+            border-color: #00ffff;
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.2);
+        }
+        
+        body.light-theme footer {
+            background: rgba(255, 255, 255, 0.9);
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            color: #2d3748;
+        }
+        
+        body.light-theme .robot {
+            filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.5));
+        }
+        
+        body.light-theme .robot:hover {
+            filter: drop-shadow(0 0 40px rgba(0, 255, 128, 0.8));
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .nav-links a:hover {
+            color: #7877c6;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(120, 119, 198, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 30px rgba(120, 119, 198, 0.6);
+        }
+        
+        /* Robot Container Styles */
+        .robot-container {
+            perspective: 1000px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .robot-aura {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            right: -50px;
+            bottom: -50px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(120, 119, 198, 0.4) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: aurapulse 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .robot-container:hover .robot-aura {
+            opacity: 1;
+        }
+        
+        @keyframes aurapulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.6; }
+        }
+        
+        .robot {
+            transition: transform 0.1s ease-out;
+            filter: drop-shadow(0 0 30px rgba(120, 119, 198, 0.5));
+            cursor: pointer;
+            width: 100%;
+            height: auto;
+            max-width: 500px;
+        }
+        
+        .robot:hover {
+            filter: drop-shadow(0 0 40px rgba(255, 119, 198, 0.8));
+        }
+        
+        .robot-arm {
+            transition: transform 0.3s ease;
+            transform-origin: center;
+        }
+        
+        /* Responsive Robot Sizes */
+        .main-robot {
+            width: 500px;
+            height: 625px;
+        }
+        
+        .medium-robot {
+            width: 200px;
+            height: 250px;
+        }
+        
+        .small-robot {
+            width: 150px;
+            height: 187px;
+        }
+        
+        /* Mobile Robot Animations */
+        @media (max-width: 768px) {
+            .robot {
+                animation: mobileRobotLoop 4s ease-in-out infinite;
+            }
+            
+            .main-robot {
+                width: 300px;
+                height: 375px;
+            }
+            
+            .medium-robot {
+                width: 120px;
+                height: 150px;
+            }
+            
+            .small-robot {
+                width: 100px;
+                height: 125px;
+            }
+        }
+        
+        @keyframes mobileRobotLoop {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            25% { transform: translateY(-5px) scale(1.02); }
+            50% { transform: translateY(0px) scale(1); }
+            75% { transform: translateY(-3px) scale(0.98); }
+        }
+        
+        @keyframes robotBreathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes robotBlink {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0.3; }
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ffffff, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #b8b8d1;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(120, 119, 198, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(120, 119, 198, 0.7);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #7877c6;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            color: #7877c6;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(120, 119, 198, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(120, 119, 198, 0.3);
+        }
+        
+        /* Page Banners */
+        .page-banner {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            margin-bottom: 4rem;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(120, 119, 198, 0.7), rgba(255, 119, 198, 0.7));
+            z-index: 1;
+        }
+        
+        .banner-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            color: white;
+        }
+        
+        .banner-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .banner-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7877c6, transparent);
+        }
+        
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .service-category {
+            background: rgba(120, 119, 198, 0.1);
+            border: 1px solid rgba(120, 119, 198, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .category-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ff77c6;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+            border-color: #7877c6;
+            box-shadow: 0 10px 40px rgba(120, 119, 198, 0.3);
+            background: rgba(120, 119, 198, 0.1);
+        }
+        
+        .service-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+        
+        .service-card p {
+            color: #b8b8d1;
+            line-height: 1.5;
+        }
+        
+        /* Service Modal */
+        .service-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 10, 15, 0.95);
+            border: 2px solid rgba(120, 119, 198, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: #ff77c6;
+        }
+        
+        .modal-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #b8b8d1;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: rgba(120, 119, 198, 0.05);
+            position: relative;
+        }
+        
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #7877c6, transparent);
+        }
+        
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(120, 119, 198, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #7877c6;
+            box-shadow: 0 10px 30px rgba(120, 119, 198, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        
+        .feature-card p {
+            color: #b8b8d1;
+            line-height: 1.5;
+        }
+        
+        /* Contact Form */
+        .contact {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-form {
+            background: rgba(120, 119, 198, 0.1);
+            border: 1px solid rgba(120, 119, 198, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(120, 119, 198, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #7877c6;
+            box-shadow: 0 0 20px rgba(120, 119, 198, 0.3);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: #25d366;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 15, 0.9);
+            border-top: 1px solid rgba(120, 119, 198, 0.3);
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #ff77c6;
+        }
+        
+        .footer-section a {
+            color: #b8b8d1;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .footer-section a:hover {
+            color: #7877c6;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(120, 119, 198, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: #7877c6;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(120, 119, 198, 0.4);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(120, 119, 198, 0.2);
+            color: #b8b8d1;
+        }
+        
+        /* Small Robot Styles */
+        .small-robot {
+            width: 120px;
+            height: 150px;
+            transition: all 0.3s ease;
+        }
+        
+        .small-robot:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 25px rgba(120, 119, 198, 0.6));
+        }
+        
+        /* Team Card Hover Effects */
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(120, 119, 198, 0.4);
+            border-color: #7877c6;
+        }
+        
+        .team-card:hover .small-robot {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 30px rgba(120, 119, 198, 0.8));
+        }
+        
+        /* Glowing Dividers */
+        .glow-divider {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #7877c6, #ff77c6, transparent);
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .glow-divider::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(120, 119, 198, 0.3), rgba(255, 119, 198, 0.3), transparent);
+            filter: blur(2px);
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+        
+        @keyframes blink {
+            0%, 90%, 100% { opacity: 1; }
+            95% { opacity: 0.3; }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Success Page Styles */
+        .success-container {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            color: #25d366;
+        }
+        
+        .success-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #7877c6, #ff77c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .success-message {
+            font-size: 1.2rem;
+            color: #b8b8d1;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo" onclick="showPage('home')">DevXpert</div>
+            <ul class="nav-links">
+                <li><a onclick="showPage('home')">Home</a></li>
+                <li><a onclick="showPage('services')">Services</a></li>
+                <li><a onclick="showPage('service-details')">Service Details</a></li>
+                <li><a onclick="showPage('features')">Features</a></li>
+                <li><a onclick="showPage('resources')">Resources</a></li>
+                <li><a onclick="showPage('about')">About</a></li>
+                <li><a onclick="showPage('team')">Team</a></li>
+                <li><a onclick="showPage('contact')">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="https://www.instagram.com/devxpertz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="instagram-link">
+                    <img src="https://i.postimg.cc/HkSmn1Vn/image.png" alt="Instagram" />
+                </a>
+                <div class="theme-toggle" onclick="toggleTheme()">
+                    <span id="themeIcon">🌙</span>
+                </div>
+                <button class="cta-button" onclick="showPage('contact')">Get Started</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content reveal">
+                    <h1>DevXpert – Building the Future of Web & App Development</h1>
+                    <p>From simple websites to advanced online apps, we deliver scalable, secure, and stunning digital experiences that transform your business vision into reality.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="showPage('contact')">Get Started</button>
+                        <button class="btn-secondary" onclick="showPage('resources')">Documentation</button>
+                    </div>
+                </div>
+                <div class="robot-container reveal">
+                    <div class="robot-aura"></div>
+                    <svg id="mainRobot" class="robot main-robot" viewBox="0 0 400 500">
+                        <defs>
+                            <linearGradient id="robotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#7877c6"/>
+                                <stop offset="100%" style="stop-color:#ff77c6"/>
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge> 
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <!-- Body -->
+                        <rect x="120" y="280" width="160" height="200" rx="20" fill="url(#robotGradient)" opacity="0.8"/>
+                        
+                        <!-- Head -->
+                        <rect id="robotHead" x="140" y="120" width="120" height="140" rx="25" fill="url(#robotGradient)" filter="url(#glow)"/>
+                        
+                        <!-- Eyes -->
+                        <circle id="leftEye" cx="165" cy="170" r="15" fill="#00ffff" filter="url(#glow)"/>
+                        <circle id="rightEye" cx="215" cy="170" r="15" fill="#00ffff" filter="url(#glow)"/>
+                        
+                        <!-- Eye pupils -->
+                        <circle id="leftPupil" cx="165" cy="170" r="6" fill="#0066cc"/>
+                        <circle id="rightPupil" cx="215" cy="170" r="6" fill="#0066cc"/>
+                        
+                        <!-- Mouth -->
+                        <rect x="175" y="210" width="30" height="8" rx="4" fill="#00ffff" opacity="0.7"/>
+                        
+                        <!-- Antenna -->
+                        <line x1="200" y1="120" x2="200" y2="90" stroke="#7877c6" stroke-width="3"/>
+                        <circle cx="200" cy="85" r="8" fill="#00ffff" filter="url(#glow)"/>
+                        
+                        <!-- Arms -->
+                        <rect id="leftArm" class="robot-arm" x="80" y="300" width="40" height="80" rx="20" fill="url(#robotGradient)" opacity="0.6"/>
+                        <rect id="rightArm" class="robot-arm" x="280" y="300" width="40" height="80" rx="20" fill="url(#robotGradient)" opacity="0.6"/>
+                        
+                        <!-- Hands -->
+                        <circle id="leftHand" cx="100" cy="390" r="12" fill="url(#robotGradient)"/>
+                        <circle id="rightHand" cx="300" cy="390" r="12" fill="url(#robotGradient)"/>
+                        
+                        <!-- Chest Panel -->
+                        <rect x="160" y="320" width="80" height="60" rx="10" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+                        <circle cx="180" cy="340" r="4" fill="#00ffff"/>
+                        <circle cx="200" cy="340" r="4" fill="#7877c6"/>
+                        <circle cx="220" cy="340" r="4" fill="#ff77c6"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+        <div class="glow-divider"></div>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <div class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+            <div class="banner-content">
+                <h1 class="banner-title">Our Services</h1>
+                <p class="banner-subtitle">Comprehensive digital solutions for your business</p>
+            </div>
+        </div>
+        <section class="services">
+            <div class="services-container">
+                <h2 class="section-title reveal">What We Offer</h2>
+                <div class="services-grid">
+                    <div class="service-category reveal">
+                        <div class="robot-container" style="position: absolute; top: -60px; right: 20px;">
+                            <svg class="small-robot" viewBox="0 0 120 150">
+                                <rect x="30" y="60" width="60" height="80" rx="15" fill="url(#robotGradient)" opacity="0.8"/>
+                                <rect x="40" y="30" width="40" height="50" rx="12" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="50" cy="50" r="6" fill="#00ffff"/>
+                                <circle cx="70" cy="50" r="6" fill="#00ffff"/>
+                                <rect id="pointingArm" x="90" y="70" width="25" height="15" rx="7" fill="url(#robotGradient)" style="animation: wave 2s ease-in-out infinite;"/>
+                            </svg>
+                        </div>
+                        <h3 class="category-title">Web Services</h3>
+                        <div class="service-card" onclick="showPage('service-details')">
+                            <h3>Basic Single Page Website</h3>
+                            <p>Perfect landing pages and portfolios with modern design and responsive layout.</p>
+                            <div style="margin-top: 1rem; font-size: 0.9rem; color: #7877c6;">Click for details →</div>
+                        </div>
+                        <div class="service-card" onclick="showPage('service-details')">
+                            <h3>Template-Based Website</h3>
+                            <p>Quick deployment with customizable templates tailored to your brand.</p>
+                            <div style="margin-top: 1rem; font-size: 0.9rem; color: #7877c6;">Click for details →</div>
+                        </div>
+                        <div class="service-card" onclick="showPage('service-details')">
+                            <h3>Fully Customized Website</h3>
+                            <p>Bespoke solutions built from scratch to match your unique needs.</p>
+                            <div style="margin-top: 1rem; font-size: 0.9rem; color: #7877c6;">Click for details →</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-category reveal">
+                        <div class="robot-container" style="position: absolute; top: -60px; left: 20px;">
+                            <svg class="small-robot" viewBox="0 0 120 150">
+                                <rect x="30" y="60" width="60" height="80" rx="15" fill="url(#robotGradient)" opacity="0.8"/>
+                                <rect x="40" y="30" width="40" height="50" rx="12" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="50" cy="50" r="6" fill="#00ffff" style="animation: blink 3s ease-in-out infinite;"/>
+                                <circle cx="70" cy="50" r="6" fill="#00ffff" style="animation: blink 3s ease-in-out infinite;"/>
+                                <rect x="45" y="80" width="30" height="20" rx="5" fill="rgba(0,255,255,0.3)" stroke="#00ffff"/>
+                                <text x="60" y="92" text-anchor="middle" fill="#00ffff" font-size="8">APP</text>
+                            </svg>
+                        </div>
+                        <h3 class="category-title">App Services</h3>
+                        <div class="service-card" onclick="openServiceModal('Basic App', 'Simple, elegant mobile applications with core functionality, smooth user experience, and intuitive design for iOS and Android platforms.')">
+                            <h3>Basic App</h3>
+                            <p>Simple, elegant mobile applications with core functionality and smooth UX.</p>
+                        </div>
+                        <div class="service-card" onclick="openServiceModal('Database-Integrated App', 'Robust data management with secure database connections, APIs, real-time synchronization, and advanced data processing capabilities.')">
+                            <h3>Database-Integrated App</h3>
+                            <p>Robust data management with secure database connections and APIs.</p>
+                        </div>
+                        <div class="service-card" onclick="openServiceModal('Online Cloud App', 'Scalable cloud applications with global accessibility, real-time features, enterprise security, and seamless cross-platform synchronization.')">
+                            <h3>Online Cloud App</h3>
+                            <p>Scalable cloud applications with global accessibility and real-time features.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="glow-divider"></div>
+    </div>
+
+    <!-- Service Details Page -->
+    <div id="service-details" class="page">
+        <div class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80');">
+            <div class="banner-content">
+                <h1 class="banner-title">Service Details</h1>
+                <p class="banner-subtitle">In-depth information about our development services</p>
+            </div>
+        </div>
+        <section class="features">
+            <div class="features-container">
+                <div class="robot-container" style="text-align: center; margin-bottom: 4rem;">
+                    <div class="robot-aura"></div>
+                    <svg class="robot medium-robot" viewBox="0 0 400 500">
+                        <defs>
+                            <linearGradient id="robotGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#7877c6"/>
+                                <stop offset="100%" style="stop-color:#ff77c6"/>
+                            </linearGradient>
+                            <filter id="glow2">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge> 
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <rect x="120" y="280" width="160" height="200" rx="20" fill="url(#robotGradient2)" opacity="0.8"/>
+                        <rect x="140" y="120" width="120" height="140" rx="25" fill="url(#robotGradient2)" filter="url(#glow2)"/>
+                        <circle cx="165" cy="170" r="15" fill="#00ffff" filter="url(#glow2)"/>
+                        <circle cx="215" cy="170" r="15" fill="#00ffff" filter="url(#glow2)"/>
+                        <circle cx="165" cy="170" r="6" fill="#0066cc"/>
+                        <circle cx="215" cy="170" r="6" fill="#0066cc"/>
+                        <path d="M 175 200 Q 200 210 225 200" stroke="#00ffff" stroke-width="3" fill="none"/>
+                        <line x1="200" y1="120" x2="200" y2="90" stroke="#7877c6" stroke-width="3"/>
+                        <circle cx="200" cy="85" r="8" fill="#00ffff" filter="url(#glow2)"/>
+                        <rect x="80" y="300" width="40" height="80" rx="20" fill="url(#robotGradient2)" opacity="0.6"/>
+                        <rect x="280" y="300" width="40" height="80" rx="20" fill="url(#robotGradient2)" opacity="0.6"/>
+                        <circle cx="100" cy="390" r="12" fill="url(#robotGradient2)"/>
+                        <circle cx="300" cy="390" r="12" fill="url(#robotGradient2)"/>
+                        <rect x="160" y="320" width="80" height="60" rx="10" fill="rgba(0,255,255,0.1)" stroke="#00ffff" stroke-width="1"/>
+                        <circle cx="180" cy="340" r="4" fill="#00ffff"/>
+                        <circle cx="200" cy="340" r="4" fill="#7877c6"/>
+                        <circle cx="220" cy="340" r="4" fill="#ff77c6"/>
+                    </svg>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; margin-top: 4rem;">
+                    <div class="feature-card reveal" style="padding: 3rem;">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem; color: #7877c6;">Web Development Services</h3>
+                        
+                        <div style="margin-bottom: 3rem;">
+                            <h4 style="font-size: 1.5rem; color: #ff77c6; margin-bottom: 1rem;">Single Page Website</h4>
+                            <p style="line-height: 1.8; margin-bottom: 2rem;">Perfect for businesses looking to establish their online presence with a clean, professional landing page. Our single-page websites are optimized for speed, mobile responsiveness, and search engines. Features include modern design, contact forms, social media integration, and analytics setup.</p>
+                            <button class="btn-primary" onclick="redirectToWhatsApp('Single Page Website')">Get To Us</button>
+                        </div>
+                        
+                        <div style="margin-bottom: 3rem;">
+                            <h4 style="font-size: 1.5rem; color: #ff77c6; margin-bottom: 1rem;">Template-Based Website</h4>
+                            <p style="line-height: 1.8; margin-bottom: 2rem;">Quick deployment solution using premium templates customized to match your brand identity. Includes multiple pages, content management system, e-commerce capabilities, blog functionality, and professional design elements tailored to your industry requirements.</p>
+                            <button class="btn-primary" onclick="redirectToWhatsApp('Template-Based Website')">Get To Us</button>
+                        </div>
+                        
+                        <div style="margin-bottom: 3rem;">
+                            <h4 style="font-size: 1.5rem; color: #ff77c6; margin-bottom: 1rem;">Fully Customized Website</h4>
+                            <p style="line-height: 1.8; margin-bottom: 2rem;">Bespoke web solutions built from scratch to meet your unique business requirements. Includes custom functionality, advanced integrations, scalable architecture, security features, performance optimization, and ongoing maintenance support.</p>
+                            <button class="btn-primary" onclick="redirectToWhatsApp('Fully Customized Website')">Get To Us</button>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card reveal" style="padding: 3rem;">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem; color: #00ffff;">App Development Services</h3>
+                        
+                        <div style="margin-bottom: 3rem;">
+                            <h4 style="font-size: 1.5rem; color: #7877c6; margin-bottom: 1rem;">Basic App</h4>
+                            <p style="line-height: 1.8; margin-bottom: 2rem;">Simple yet powerful mobile applications for iOS and Android platforms. Features include intuitive user interface, core functionality implementation, offline capabilities, push notifications, and app store optimization for maximum visibility and downloads.</p>
+                            <button class="btn-primary" onclick="redirectToWhatsApp('Basic App')">Get To Us</button>
+                        </div>
+                        
+                        <div style="margin-bottom: 3rem;">
+                            <h4 style="font-size: 1.5rem; color: #7877c6; margin-bottom: 1rem;">Database Integrated App</h4>
+                            <p style="line-height: 1.8; margin-bottom: 2rem;">Advanced applications with robust data management capabilities. Includes secure database connections, real-time synchronization, user authentication, data analytics, API integrations, and comprehensive admin dashboard for content management.</p>
+                            <button class="btn-primary" onclick="redirectToWhatsApp('Database Integrated App')">Get To Us</button>
+                        </div>
+                        
+                        <div style="margin-bottom: 3rem;">
+                            <h4 style="font-size: 1.5rem; color: #7877c6; margin-bottom: 1rem;">Online Cloud App</h4>
+                            <p style="line-height: 1.8; margin-bottom: 2rem;">Enterprise-grade cloud applications with global accessibility and scalability. Features include multi-user support, real-time collaboration, advanced security, automatic backups, performance monitoring, and seamless cross-platform synchronization.</p>
+                            <button class="btn-primary" onclick="redirectToWhatsApp('Online Cloud App')">Get To Us</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glow-divider"></div>
+                
+                <div style="text-align: center; margin-top: 4rem;">
+                    <h3 style="font-size: 2.5rem; margin-bottom: 2rem; color: #ff77c6; font-family: 'Orbitron', monospace;">Why Choose Our Services?</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                        <div style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                            <h4 style="color: #7877c6; margin-bottom: 1rem;">Fast Delivery</h4>
+                            <p style="color: #b8b8d1;">Quick turnaround times without compromising quality</p>
+                        </div>
+                        <div style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
+                            <h4 style="color: #ff77c6; margin-bottom: 1rem;">Secure & Reliable</h4>
+                            <p style="color: #b8b8d1;">Enterprise-grade security and reliability standards</p>
+                        </div>
+                        <div style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">📱</div>
+                            <h4 style="color: #00ffff; margin-bottom: 1rem;">Responsive Design</h4>
+                            <p style="color: #b8b8d1;">Perfect performance across all devices and platforms</p>
+                        </div>
+                        <div style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🛠️</div>
+                            <h4 style="color: #7877c6; margin-bottom: 1rem;">Ongoing Support</h4>
+                            <p style="color: #b8b8d1;">24/7 maintenance and technical support services</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="glow-divider"></div>
+    </div>
+
+    <!-- Features Page -->
+    <div id="features" class="page">
+        <div class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2025&q=80');">
+            <div class="banner-content">
+                <h1 class="banner-title">Features & Capabilities</h1>
+                <p class="banner-subtitle">Advanced technology solutions that power your success</p>
+            </div>
+        </div>
+        <section class="features">
+            <div class="features-container">
+                <h2 class="section-title reveal">Why Choose DevXpert</h2>
+                <div class="features-grid">
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="30" y="50" width="20" height="15" rx="3" fill="rgba(0,255,255,0.3)"/>
+                                <polygon points="40,10 45,5 35,5" fill="#ff77c6" style="animation: pulse 2s ease-in-out infinite;"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">🚀</span>
+                        <h3>Scalability</h3>
+                        <p>Built to grow with your business, from startup to enterprise level with robust architecture.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="40" cy="55" r="8" fill="rgba(255,255,0,0.5)" style="animation: pulse 1s ease-in-out infinite;"/>
+                                <polygon points="40,47 43,52 37,52" fill="#ffff00"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">⚡</span>
+                        <h3>Speed</h3>
+                        <p>Lightning-fast performance with optimized code and modern frameworks for superior user experience.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="32" y="50" width="16" height="12" rx="2" fill="rgba(0,255,0,0.3)" stroke="#00ff00"/>
+                                <circle cx="40" cy="56" r="2" fill="#00ff00"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">🔒</span>
+                        <h3>Security</h3>
+                        <p>Enterprise-grade security with best practices, encryption, and regular security updates.</p>
+                    </div>
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="10" y="50" width="15" height="8" rx="4" fill="url(#robotGradient)" style="animation: wave 2s ease-in-out infinite;"/>
+                                <rect x="55" y="50" width="15" height="8" rx="4" fill="url(#robotGradient)" style="animation: wave 2s ease-in-out infinite; animation-delay: 1s;"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">🛠️</span>
+                        <h3>Support</h3>
+                        <p>24/7 dedicated support and maintenance with expert technical assistance whenever you need it.</p>
+                    </div>
+                </div>
+                
+                <!-- Additional Features Section -->
+                <div class="glow-divider"></div>
+                <h3 style="text-align: center; font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 3rem; background: linear-gradient(45deg, #7877c6, #ff77c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Advanced Capabilities</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-top: 3rem;">
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="30" y="50" width="20" height="15" rx="3" fill="rgba(0,255,255,0.3)"/>
+                                <circle cx="40" cy="57" r="3" fill="#00ffff" style="animation: pulse 1.5s ease-in-out infinite;"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">🔄</span>
+                        <h3>Real-time Updates</h3>
+                        <p>Live data synchronization and real-time updates ensure your applications stay current with instant information delivery and seamless user experiences across all platforms.</p>
+                    </div>
+                    
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="15" y="50" width="12" height="8" rx="4" fill="url(#robotGradient)" style="animation: wave 2s ease-in-out infinite;"/>
+                                <rect x="53" y="50" width="12" height="8" rx="4" fill="url(#robotGradient)" style="animation: wave 2s ease-in-out infinite; animation-delay: 0.5s;"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">📱</span>
+                        <h3>Cross-Platform</h3>
+                        <p>Seamless functionality across all devices and platforms. Your applications work perfectly on desktop, mobile, tablet, and web with consistent user experience everywhere.</p>
+                    </div>
+                    
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="30" y="50" width="20" height="15" rx="3" fill="rgba(255,215,0,0.3)" stroke="#ffd700"/>
+                                <polygon points="40,52 42,57 38,57" fill="#ffd700" style="animation: pulse 2s ease-in-out infinite;"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">🎨</span>
+                        <h3>Custom Design</h3>
+                        <p>Tailored designs that reflect your brand identity perfectly. Every element is crafted to match your vision with stunning visuals and intuitive user interfaces.</p>
+                    </div>
+                    
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="40" cy="55" r="8" fill="rgba(0,255,0,0.3)" stroke="#00ff00"/>
+                                <path d="M 35 55 L 38 58 L 45 51" stroke="#00ff00" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">✅</span>
+                        <h3>Quality Assurance</h3>
+                        <p>Rigorous testing and quality assurance processes ensure bug-free, reliable applications. Every feature is thoroughly tested before deployment for optimal performance.</p>
+                    </div>
+                    
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="30" y="50" width="20" height="15" rx="3" fill="rgba(255,255,255,0.2)"/>
+                                <circle cx="35" cy="57" r="2" fill="#7877c6"/>
+                                <circle cx="40" cy="57" r="2" fill="#ff77c6"/>
+                                <circle cx="45" cy="57" r="2" fill="#00ffff"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">🔧</span>
+                        <h3>Easy Maintenance</h3>
+                        <p>Clean, well-documented code makes future updates and maintenance simple. Our structured approach ensures your applications remain easy to modify and expand.</p>
+                    </div>
+                    
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <rect x="30" y="50" width="20" height="15" rx="3" fill="rgba(0,255,255,0.3)"/>
+                                <text x="40" y="60" text-anchor="middle" fill="#00ffff" font-size="8">API</text>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">🔗</span>
+                        <h3>API Integration</h3>
+                        <p>Seamless integration with third-party services and APIs. Connect your applications with payment gateways, social media, analytics, and countless other services effortlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="glow-divider"></div>
+    </div>
+
+    <!-- Resources Page -->
+    <div id="resources" class="page">
+        <div class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=2028&q=80');">
+            <div class="banner-content">
+                <h1 class="banner-title">Resources & Documentation</h1>
+                <p class="banner-subtitle">Comprehensive guides and learning materials</p>
+            </div>
+        </div>
+        <section class="features">
+            <div class="features-container">
+                <h2 class="section-title reveal">Learning Hub</h2>
+                <div class="robot-container" style="text-align: center; margin-bottom: 3rem;">
+                    <svg class="small-robot" viewBox="0 0 150 180" style="width: 120px; height: 144px;">
+                        <rect x="35" y="70" width="80" height="100" rx="20" fill="url(#robotGradient)" opacity="0.8"/>
+                        <rect x="45" y="40" width="60" height="70" rx="15" fill="url(#robotGradient)" filter="url(#glow)"/>
+                        <circle cx="60" cy="65" r="8" fill="#00ffff"/>
+                        <circle cx="90" cy="65" r="8" fill="#00ffff"/>
+                        <rect x="20" y="90" width="25" height="40" rx="12" fill="url(#robotGradient)"/>
+                        <rect x="105" y="90" width="25" height="40" rx="12" fill="url(#robotGradient)"/>
+                        <!-- Tablet -->
+                        <rect x="55" y="110" width="40" height="30" rx="3" fill="rgba(0,255,255,0.2)" stroke="#00ffff"/>
+                        <rect x="58" y="113" width="34" height="20" rx="2" fill="rgba(255,255,255,0.1)"/>
+                        <text x="75" y="125" text-anchor="middle" fill="#00ffff" font-size="6">DOCS</text>
+                    </svg>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card reveal">
+                        <span class="feature-icon">📚</span>
+                        <h3>Documentation</h3>
+                        <p>Comprehensive guides, API references, and tutorials to help you succeed with our services.</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">View Docs</button>
+                    </div>
+                    <div class="feature-card reveal">
+                        <span class="feature-icon">✍️</span>
+                        <h3>Blog & Guides</h3>
+                        <p>Latest insights, best practices, and industry trends from our development experts.</p>
+                        <button class="btn-secondary" style="margin-top: 1rem;">Read Blog</button>
+                    </div>
+                    <div class="feature-card reveal">
+                        <span class="feature-icon">🎥</span>
+                        <h3>Video Tutorials</h3>
+                        <p>Step-by-step video guides to help you understand and implement our solutions effectively.</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">Watch Videos</button>
+                    </div>
+                    <div class="feature-card reveal">
+                        <span class="feature-icon">💬</span>
+                        <h3>Community Support</h3>
+                        <p>Join our developer community for discussions, support, and collaboration opportunities.</p>
+                        <button class="btn-secondary" style="margin-top: 1rem;">Join Community</button>
+                    </div>
+                </div>
+                
+                <!-- Additional Resources Section -->
+                <div class="glow-divider"></div>
+                <h3 style="text-align: center; font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 3rem; background: linear-gradient(45deg, #7877c6, #ff77c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Learning Resources</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-top: 3rem;">
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <!-- Book -->
+                                <rect x="30" y="50" width="20" height="15" rx="2" fill="rgba(255,255,255,0.2)" stroke="#7877c6"/>
+                                <line x1="32" y1="53" x2="48" y2="53" stroke="#7877c6" stroke-width="1"/>
+                                <line x1="32" y1="56" x2="46" y2="56" stroke="#7877c6" stroke-width="1"/>
+                                <line x1="32" y1="59" x2="44" y2="59" stroke="#7877c6" stroke-width="1"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">📖</span>
+                        <h3>Code Examples</h3>
+                        <p>Comprehensive code samples and examples for common development scenarios. Learn best practices through real-world implementations and detailed explanations.</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">Browse Examples</button>
+                    </div>
+                    
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <!-- Download arrow -->
+                                <rect x="35" y="50" width="10" height="8" rx="2" fill="rgba(0,255,255,0.3)"/>
+                                <polygon points="40,58 37,62 43,62" fill="#00ffff" style="animation: pulse 2s ease-in-out infinite;"/>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">⬇️</span>
+                        <h3>Downloads</h3>
+                        <p>Essential tools, templates, and resources to accelerate your development process. Get starter kits, design assets, and development utilities.</p>
+                        <button class="btn-secondary" style="margin-top: 1rem;">Download Tools</button>
+                    </div>
+                    
+                    <div class="feature-card reveal">
+                        <div class="robot-container" style="margin-bottom: 1rem;">
+                            <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px;">
+                                <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                                <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                                <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                                <!-- FAQ -->
+                                <circle cx="40" cy="55" r="8" fill="rgba(255,119,198,0.3)" stroke="#ff77c6"/>
+                                <text x="40" y="60" text-anchor="middle" fill="#ff77c6" font-size="10">?</text>
+                            </svg>
+                        </div>
+                        <span class="feature-icon">❓</span>
+                        <h3>FAQ</h3>
+                        <p>Frequently asked questions and detailed answers about our services, development process, pricing, and technical specifications.</p>
+                        <button class="btn-primary" style="margin-top: 1rem;">View FAQ</button>
+                    </div>
+                </div>
+                
+                <!-- Knowledge Base Section -->
+                <div class="glow-divider"></div>
+                <h3 style="text-align: center; font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 3rem; background: linear-gradient(45deg, #ff77c6, #7877c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Knowledge Base</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                        <h4 style="color: #7877c6; margin-bottom: 1rem; font-size: 1.3rem;">Getting Started</h4>
+                        <ul style="color: #b8b8d1; line-height: 1.8;">
+                            <li>• Project Planning & Requirements</li>
+                            <li>• Technology Stack Selection</li>
+                            <li>• Development Timeline</li>
+                            <li>• Budget Estimation</li>
+                            <li>• Communication Process</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                        <h4 style="color: #ff77c6; margin-bottom: 1rem; font-size: 1.3rem;">Development Process</h4>
+                        <ul style="color: #b8b8d1; line-height: 1.8;">
+                            <li>• Agile Development Methodology</li>
+                            <li>• Code Review & Quality Assurance</li>
+                            <li>• Testing & Deployment</li>
+                            <li>• Version Control & Collaboration</li>
+                            <li>• Performance Optimization</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                        <h4 style="color: #00ffff; margin-bottom: 1rem; font-size: 1.3rem;">Support & Maintenance</h4>
+                        <ul style="color: #b8b8d1; line-height: 1.8;">
+                            <li>• 24/7 Technical Support</li>
+                            <li>• Regular Updates & Patches</li>
+                            <li>• Performance Monitoring</li>
+                            <li>• Security Audits</li>
+                            <li>• Feature Enhancements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="glow-divider"></div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+            <div class="banner-content">
+                <h1 class="banner-title">About DevXpert</h1>
+                <p class="banner-subtitle">Our story, vision, and commitment to excellence</p>
+            </div>
+        </div>
+        <section class="features">
+            <div class="features-container">
+                <h2 class="section-title reveal">Our Story</h2>
+                <div class="robot-container" style="text-align: center; margin-bottom: 3rem;">
+                    <svg class="small-robot" viewBox="0 0 150 180" style="width: 120px; height: 144px; animation: float 3s ease-in-out infinite;">
+                        <rect x="35" y="70" width="80" height="100" rx="20" fill="url(#robotGradient)" opacity="0.8"/>
+                        <rect x="45" y="40" width="60" height="70" rx="15" fill="url(#robotGradient)" filter="url(#glow)"/>
+                        <circle cx="60" cy="65" r="8" fill="#00ffff"/>
+                        <circle cx="90" cy="65" r="8" fill="#00ffff"/>
+                        <path d="M 65 80 Q 75 85 85 80" stroke="#00ffff" stroke-width="2" fill="none"/>
+                        <rect x="20" y="90" width="25" height="40" rx="12" fill="url(#robotGradient)"/>
+                        <rect x="105" y="90" width="25" height="40" rx="12" fill="url(#robotGradient)"/>
+                        <!-- Heart -->
+                        <path d="M 75 100 C 70 95, 60 95, 60 105 C 60 95, 50 95, 45 100 C 45 110, 60 120, 75 130 C 90 120, 105 110, 105 100 C 100 95, 90 95, 90 105 C 90 95, 80 95, 75 100 Z" fill="#ff77c6" opacity="0.7"/>
+                    </svg>
+                </div>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <div class="reveal">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem; color: #ff77c6;">Our Mission</h3>
+                        <p style="font-size: 1.2rem; line-height: 1.8; color: #b8b8d1; margin-bottom: 3rem;">
+                            At DevXpert, we believe in transforming ideas into digital reality. Our mission is to empower businesses 
+                            with cutting-edge web and app development solutions that drive growth, enhance user experience, and 
+                            create lasting impact in the digital world.
+                        </p>
+                    </div>
+                    <div class="reveal">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem; color: #7877c6;">Our Vision</h3>
+                        <p style="font-size: 1.2rem; line-height: 1.8; color: #b8b8d1; margin-bottom: 3rem;">
+                            To be the leading force in digital innovation, creating scalable, secure, and stunning applications 
+                            that shape the future of technology. We envision a world where every business, regardless of size, 
+                            has access to world-class digital solutions.
+                        </p>
+                    </div>
+                    <div class="reveal">
+                        <h3 style="font-size: 2rem; margin-bottom: 2rem; color: #ff77c6;">Our Values</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                            <div style="padding: 1.5rem; background: rgba(120, 119, 198, 0.1); border-radius: 15px; border: 1px solid rgba(120, 119, 198, 0.2);">
+                                <h4 style="color: #ffffff; margin-bottom: 1rem;">Innovation</h4>
+                                <p style="color: #b8b8d1;">Constantly pushing boundaries with latest technologies</p>
+                            </div>
+                            <div style="padding: 1.5rem; background: rgba(120, 119, 198, 0.1); border-radius: 15px; border: 1px solid rgba(120, 119, 198, 0.2);">
+                                <h4 style="color: #ffffff; margin-bottom: 1rem;">Quality</h4>
+                                <p style="color: #b8b8d1;">Delivering excellence in every project we undertake</p>
+                            </div>
+                            <div style="padding: 1.5rem; background: rgba(120, 119, 198, 0.1); border-radius: 15px; border: 1px solid rgba(120, 119, 198, 0.2);">
+                                <h4 style="color: #ffffff; margin-bottom: 1rem;">Partnership</h4>
+                                <p style="color: #b8b8d1;">Building lasting relationships with our clients</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Company Story Section -->
+                <div class="glow-divider"></div>
+                <div style="max-width: 1000px; margin: 0 auto; text-align: left;">
+                    <h3 style="font-size: 2.5rem; margin-bottom: 3rem; color: #7877c6; text-align: center; font-family: 'Orbitron', monospace;">Our Journey</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 200px; gap: 3rem; align-items: start; margin-bottom: 4rem;">
+                        <div class="reveal">
+                            <h4 style="font-size: 1.8rem; color: #ff77c6; margin-bottom: 1.5rem;">The Beginning</h4>
+                            <p style="font-size: 1.1rem; line-height: 1.8; color: #b8b8d1; margin-bottom: 2rem;">
+                                DevXpert was born from a simple yet powerful vision: to democratize access to world-class web and app development. 
+                                Founded by passionate developers who understood the challenges businesses face in the digital landscape, we set out 
+                                to bridge the gap between complex technology and practical business solutions.
+                            </p>
+                            <p style="font-size: 1.1rem; line-height: 1.8; color: #b8b8d1;">
+                                What started as a small team of dedicated developers has grown into a comprehensive development powerhouse, 
+                                serving clients from startups to enterprises across various industries.
+                            </p>
+                        </div>
+                        <div class="robot-container">
+                            <svg class="small-robot" viewBox="0 0 120 150" style="width: 100px; height: 125px; animation: float 3s ease-in-out infinite;">
+                                <rect x="30" y="60" width="60" height="80" rx="15" fill="url(#robotGradient)" opacity="0.8"/>
+                                <rect x="40" y="30" width="40" height="50" rx="12" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="50" cy="50" r="6" fill="#00ffff"/>
+                                <circle cx="70" cy="50" r="6" fill="#00ffff"/>
+                                <path d="M 50 60 Q 60 65 70 60" stroke="#00ffff" stroke-width="2" fill="none"/>
+                                <!-- Lightbulb idea -->
+                                <circle cx="60" cy="10" r="8" fill="rgba(255,215,0,0.3)" stroke="#ffd700"/>
+                                <rect x="57" y="18" width="6" height="4" fill="#ffd700"/>
+                                <line x1="60" y1="22" x2="60" y2="25" stroke="#ffd700" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: start; margin-bottom: 4rem;">
+                        <div class="robot-container">
+                            <svg class="small-robot" viewBox="0 0 120 150" style="width: 100px; height: 125px; animation: wave 2s ease-in-out infinite;">
+                                <rect x="30" y="60" width="60" height="80" rx="15" fill="url(#robotGradient)" opacity="0.8"/>
+                                <rect x="40" y="30" width="40" height="50" rx="12" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="50" cy="50" r="6" fill="#00ffff"/>
+                                <circle cx="70" cy="50" r="6" fill="#00ffff"/>
+                                <path d="M 50 60 Q 60 65 70 60" stroke="#00ffff" stroke-width="2" fill="none"/>
+                                <!-- Growth chart -->
+                                <rect x="35" y="80" width="50" height="30" rx="3" fill="rgba(0,255,255,0.2)" stroke="#00ffff"/>
+                                <polyline points="40,105 45,100 50,95 55,90 60,85 65,80 70,75 75,70 80,65" stroke="#00ffff" stroke-width="2" fill="none"/>
+                            </svg>
+                        </div>
+                        <div class="reveal">
+                            <h4 style="font-size: 1.8rem; color: #00ffff; margin-bottom: 1.5rem;">Growth & Evolution</h4>
+                            <p style="font-size: 1.1rem; line-height: 1.8; color: #b8b8d1; margin-bottom: 2rem;">
+                                Over the years, we've continuously evolved our expertise, staying ahead of technological trends and industry demands. 
+                                From simple websites to complex cloud applications, our portfolio has expanded to encompass the full spectrum of 
+                                digital solutions.
+                            </p>
+                            <p style="font-size: 1.1rem; line-height: 1.8; color: #b8b8d1;">
+                                Our commitment to excellence has earned us the trust of over 100 satisfied clients, with a 100% project success rate 
+                                and countless long-term partnerships that continue to thrive.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 200px; gap: 3rem; align-items: start; margin-bottom: 4rem;">
+                        <div class="reveal">
+                            <h4 style="font-size: 1.8rem; color: #ff77c6; margin-bottom: 1.5rem;">Innovation & Future</h4>
+                            <p style="font-size: 1.1rem; line-height: 1.8; color: #b8b8d1; margin-bottom: 2rem;">
+                                Today, DevXpert stands at the forefront of digital innovation, leveraging cutting-edge technologies like AI, 
+                                machine learning, and cloud computing to create solutions that not only meet current needs but anticipate 
+                                future challenges.
+                            </p>
+                            <p style="font-size: 1.1rem; line-height: 1.8; color: #b8b8d1;">
+                                As we look to the future, our mission remains unchanged: to empower businesses with technology that drives growth, 
+                                enhances user experiences, and creates lasting value in an ever-evolving digital world.
+                            </p>
+                        </div>
+                        <div class="robot-container">
+                            <svg class="small-robot" viewBox="0 0 120 150" style="width: 100px; height: 125px; animation: pulse 2s ease-in-out infinite;">
+                                <rect x="30" y="60" width="60" height="80" rx="15" fill="url(#robotGradient)" opacity="0.8"/>
+                                <rect x="40" y="30" width="40" height="50" rx="12" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="50" cy="50" r="6" fill="#00ffff"/>
+                                <circle cx="70" cy="50" r="6" fill="#00ffff"/>
+                                <path d="M 50 60 Q 60 65 70 60" stroke="#00ffff" stroke-width="2" fill="none"/>
+                                <!-- Rocket -->
+                                <polygon points="60,5 55,15 65,15" fill="#ff77c6"/>
+                                <rect x="57" y="15" width="6" height="10" fill="#7877c6"/>
+                                <polygon points="55,25 57,30 63,30 65,25" fill="#ff77c6"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Company Culture Section -->
+                <div class="glow-divider"></div>
+                <h3 style="text-align: center; font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 3rem; background: linear-gradient(45deg, #7877c6, #ff77c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Our Culture</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                        <h4 style="color: #7877c6; margin-bottom: 1rem;">Innovation First</h4>
+                        <p style="color: #b8b8d1; line-height: 1.6;">We embrace new technologies and creative solutions to solve complex challenges.</p>
+                    </div>
+                    
+                    <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🤝</div>
+                        <h4 style="color: #ff77c6; margin-bottom: 1rem;">Collaboration</h4>
+                        <p style="color: #b8b8d1; line-height: 1.6;">Teamwork and open communication drive our success and client satisfaction.</p>
+                    </div>
+                    
+                    <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                        <h4 style="color: #00ffff; margin-bottom: 1rem;">Results Driven</h4>
+                        <p style="color: #b8b8d1; line-height: 1.6;">Every project is focused on delivering measurable value and business impact.</p>
+                    </div>
+                    
+                    <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📚</div>
+                        <h4 style="color: #7877c6; margin-bottom: 1rem;">Continuous Learning</h4>
+                        <p style="color: #b8b8d1; line-height: 1.6;">We stay ahead by constantly learning and adapting to new technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="glow-divider"></div>
+    </div>
+
+    <!-- Team Page -->
+    <div id="team" class="page">
+        <div class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80');">
+            <div class="banner-content">
+                <h1 class="banner-title">Meet Our Team</h1>
+                <p class="banner-subtitle">The talented individuals behind DevXpert's success</p>
+            </div>
+        </div>
+        <section class="features">
+            <div class="features-container">
+                <h2 class="section-title reveal">Our Experts</h2>
+                <div class="robot-container" style="text-align: center; margin-bottom: 4rem;">
+                    <svg class="small-robot" viewBox="0 0 150 180" style="width: 120px; height: 144px; animation: float 3s ease-in-out infinite;">
+                        <rect x="35" y="70" width="80" height="100" rx="20" fill="url(#robotGradient)" opacity="0.8"/>
+                        <rect x="45" y="40" width="60" height="70" rx="15" fill="url(#robotGradient)" filter="url(#glow)"/>
+                        <circle cx="60" cy="65" r="8" fill="#00ffff"/>
+                        <circle cx="90" cy="65" r="8" fill="#00ffff"/>
+                        <path d="M 65 80 Q 75 85 85 80" stroke="#00ffff" stroke-width="2" fill="none"/>
+                        <rect x="20" y="90" width="25" height="40" rx="12" fill="url(#robotGradient)"/>
+                        <rect x="105" y="90" width="25" height="40" rx="12" fill="url(#robotGradient)"/>
+                        <!-- Team badge -->
+                        <rect x="55" y="110" width="40" height="25" rx="5" fill="rgba(0,255,255,0.2)" stroke="#00ffff"/>
+                        <text x="75" y="125" text-anchor="middle" fill="#00ffff" font-size="8">TEAM</text>
+                    </svg>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 4rem; margin-top: 4rem;">
+                    <!-- Aklavya Profile -->
+                    <div class="team-card reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 20px; padding: 3rem; text-align: center; transition: all 0.4s ease; position: relative;">
+                        <div class="robot-container" style="margin-bottom: 2rem;">
+                            <svg class="small-robot" viewBox="0 0 120 150" style="width: 100px; height: 125px; animation: wave 2s ease-in-out infinite;">
+                                <rect x="30" y="60" width="60" height="80" rx="15" fill="url(#robotGradient)" opacity="0.8"/>
+                                <rect x="40" y="30" width="40" height="50" rx="12" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="50" cy="50" r="6" fill="#00ffff"/>
+                                <circle cx="70" cy="50" r="6" fill="#00ffff"/>
+                                <path d="M 50 60 Q 60 65 70 60" stroke="#00ffff" stroke-width="2" fill="none"/>
+                                <!-- Developer badge -->
+                                <rect x="35" y="80" width="50" height="15" rx="3" fill="rgba(0,255,255,0.3)" stroke="#00ffff"/>
+                                <text x="60" y="90" text-anchor="middle" fill="#00ffff" font-size="6">DEVELOPER</text>
+                                <!-- Laptop -->
+                                <rect x="20" y="100" width="25" height="15" rx="2" fill="rgba(255,255,255,0.2)" stroke="#7877c6"/>
+                                <rect x="22" y="102" width="21" height="10" rx="1" fill="rgba(0,255,255,0.1)"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(45deg, #7877c6, #ff77c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Aklavya</h3>
+                        <p style="font-size: 1.2rem; color: #ff77c6; margin-bottom: 2rem; font-weight: 600;">Lead Developer</p>
+                        <p style="color: #b8b8d1; line-height: 1.6; margin-bottom: 2rem;">
+                            Master of code and innovation, Aklavya brings cutting-edge development expertise to every project. 
+                            With years of experience in web and app development, he transforms complex ideas into elegant, 
+                            scalable solutions that drive business success.
+                        </p>
+                        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                            <div style="background: rgba(120, 119, 198, 0.2); padding: 0.5rem 1rem; border-radius: 15px; font-size: 0.9rem;">JavaScript</div>
+                            <div style="background: rgba(255, 119, 198, 0.2); padding: 0.5rem 1rem; border-radius: 15px; font-size: 0.9rem;">React</div>
+                            <div style="background: rgba(120, 219, 255, 0.2); padding: 0.5rem 1rem; border-radius: 15px; font-size: 0.9rem;">Node.js</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ishesh Profile -->
+                    <div class="team-card reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 20px; padding: 3rem; text-align: center; transition: all 0.4s ease; position: relative;">
+                        <div class="robot-container" style="margin-bottom: 2rem;">
+                            <svg class="small-robot" viewBox="0 0 120 150" style="width: 100px; height: 125px; animation: float 2.5s ease-in-out infinite;">
+                                <rect x="30" y="60" width="60" height="80" rx="15" fill="url(#robotGradient)" opacity="0.8"/>
+                                <rect x="40" y="30" width="40" height="50" rx="12" fill="url(#robotGradient)" filter="url(#glow)"/>
+                                <circle cx="50" cy="50" r="6" fill="#00ffff"/>
+                                <circle cx="70" cy="50" r="6" fill="#00ffff"/>
+                                <path d="M 50 60 Q 60 65 70 60" stroke="#00ffff" stroke-width="2" fill="none"/>
+                                <!-- Manager badge -->
+                                <rect x="35" y="80" width="50" height="15" rx="3" fill="rgba(255,119,198,0.3)" stroke="#ff77c6"/>
+                                <text x="60" y="90" text-anchor="middle" fill="#ff77c6" font-size="6">CO-MANAGER</text>
+                                <!-- Chart/Graph -->
+                                <rect x="75" y="95" width="20" height="20" rx="2" fill="rgba(255,255,255,0.1)" stroke="#ff77c6"/>
+                                <polyline points="78,110 82,105 86,108 90,102" stroke="#ff77c6" stroke-width="1" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 1rem; background: linear-gradient(45deg, #ff77c6, #7877c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Ishesh</h3>
+                        <p style="font-size: 1.2rem; color: #7877c6; margin-bottom: 2rem; font-weight: 600;">Co-Manager</p>
+                        <p style="color: #b8b8d1; line-height: 1.6; margin-bottom: 2rem;">
+                            Strategic visionary and operational excellence expert, Ishesh ensures every project runs smoothly 
+                            from conception to delivery. His leadership and management skills keep our team focused on 
+                            delivering exceptional results that exceed client expectations.
+                        </p>
+                        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                            <div style="background: rgba(255, 119, 198, 0.2); padding: 0.5rem 1rem; border-radius: 15px; font-size: 0.9rem;">Strategy</div>
+                            <div style="background: rgba(120, 119, 198, 0.2); padding: 0.5rem 1rem; border-radius: 15px; font-size: 0.9rem;">Management</div>
+                            <div style="background: rgba(120, 219, 255, 0.2); padding: 0.5rem 1rem; border-radius: 15px; font-size: 0.9rem;">Operations</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Stats Section -->
+                <div style="margin-top: 6rem; text-align: center;">
+                    <h3 style="font-family: 'Orbitron', monospace; font-size: 2rem; margin-bottom: 3rem; background: linear-gradient(45deg, #7877c6, #ff77c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Our Achievements</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                        <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                            <h4 style="font-size: 2rem; color: #7877c6; margin-bottom: 0.5rem;">50+</h4>
+                            <p style="color: #b8b8d1;">Projects Completed</p>
+                        </div>
+                        <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">😊</div>
+                            <h4 style="font-size: 2rem; color: #ff77c6; margin-bottom: 0.5rem;">100%</h4>
+                            <p style="color: #b8b8d1;">Client Satisfaction</p>
+                        </div>
+                        <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+                            <h4 style="font-size: 2rem; color: #00ffff; margin-bottom: 0.5rem;">24/7</h4>
+                            <p style="color: #b8b8d1;">Support Available</p>
+                        </div>
+                        <div class="reveal" style="background: rgba(120, 119, 198, 0.1); border: 1px solid rgba(120, 119, 198, 0.3); border-radius: 15px; padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 1rem;">🌟</div>
+                            <h4 style="font-size: 2rem; color: #7877c6; margin-bottom: 0.5rem;">5+</h4>
+                            <p style="color: #b8b8d1;">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="page-banner" style="background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80');">
+            <div class="banner-content">
+                <h1 class="banner-title">Contact Us</h1>
+                <p class="banner-subtitle">Let's discuss your next project together</p>
+            </div>
+        </div>
+        <section class="contact">
+            <div class="contact-container">
+                <div>
+                    <h2 class="section-title reveal" style="text-align: left;">Get In Touch</h2>
+                    <form class="contact-form reveal" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="robot-container reveal">
+                    <svg id="contactRobot" class="small-robot" viewBox="0 0 200 250" style="width: 160px; height: 200px;">
+                        <rect x="50" y="100" width="100" height="130" rx="25" fill="url(#robotGradient)" opacity="0.8"/>
+                        <rect x="60" y="60" width="80" height="90" rx="20" fill="url(#robotGradient)" filter="url(#glow)"/>
+                        <circle cx="80" cy="95" r="10" fill="#00ffff"/>
+                        <circle cx="120" cy="95" r="10" fill="#00ffff"/>
+                        <path d="M 85 115 Q 100 125 115 115" stroke="#00ffff" stroke-width="3" fill="none"/>
+                        <!-- Arms -->
+                        <rect x="20" y="120" width="30" height="50" rx="15" fill="url(#robotGradient)"/>
+                        <rect x="150" y="120" width="30" height="50" rx="15" fill="url(#robotGradient)"/>
+                        <!-- Letter in hand -->
+                        <rect id="letter" x="25" y="110" width="20" height="15" rx="2" fill="rgba(255,255,255,0.8)" stroke="#7877c6"/>
+                        <line x1="28" y1="113" x2="42" y2="113" stroke="#7877c6" stroke-width="1"/>
+                        <line x1="28" y1="116" x2="40" y2="116" stroke="#7877c6" stroke-width="1"/>
+                        <line x1="28" y1="119" x2="38" y2="119" stroke="#7877c6" stroke-width="1"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Success Page -->
+    <div id="success" class="page">
+        <section class="hero">
+            <div class="success-container">
+                <div class="robot-container" style="margin-bottom: 2rem;">
+                    <svg class="small-robot" viewBox="0 0 150 180" style="width: 120px; height: 144px; animation: float 2s ease-in-out infinite;">
+                        <rect x="35" y="70" width="80" height="100" rx="20" fill="url(#robotGradient)" opacity="0.8"/>
+                        <rect x="45" y="40" width="60" height="70" rx="15" fill="url(#robotGradient)" filter="url(#glow)"/>
+                        <circle cx="60" cy="65" r="8" fill="#00ffff"/>
+                        <circle cx="90" cy="65" r="8" fill="#00ffff"/>
+                        <path d="M 60 80 Q 75 90 90 80" stroke="#00ffff" stroke-width="3" fill="none"/>
+                        <!-- Thumbs up -->
+                        <rect x="15" y="85" width="20" height="35" rx="10" fill="url(#robotGradient)"/>
+                        <rect x="20" y="75" width="10" height="15" rx="5" fill="url(#robotGradient)"/>
+                        <rect x="115" y="85" width="20" height="35" rx="10" fill="url(#robotGradient)"/>
+                        <rect x="120" y="75" width="10" height="15" rx="5" fill="url(#robotGradient)"/>
+                    </svg>
+                </div>
+                <div class="success-icon">✅</div>
+                <h1 class="success-title">Thank You!</h1>
+                <p class="success-message">Your message has been sent successfully. We'll get back to you within 24 hours.</p>
+                <button class="btn-primary" onclick="showPage('home')">Back to Home</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Service Modal -->
+    <div id="serviceModal" class="service-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeServiceModal()">&times;</button>
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDescription" class="modal-description"></p>
+            <button id="modalButton" class="btn-primary">Get To Us</button>
+        </div>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <button class="whatsapp-btn" onclick="openWhatsApp()">
+        💬
+    </button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>DevXpert</h3>
+                <p>Building the future of web and app development with cutting-edge technology and innovative solutions.</p>
+                <div class="robot-container" style="margin-top: 1rem;">
+                    <svg class="small-robot" viewBox="0 0 80 100" style="width: 60px; height: 75px; animation: wave 3s ease-in-out infinite;">
+                        <rect x="20" y="40" width="40" height="50" rx="10" fill="url(#robotGradient)"/>
+                        <rect x="25" y="20" width="30" height="35" rx="8" fill="url(#robotGradient)" filter="url(#glow)"/>
+                        <circle cx="32" cy="32" r="4" fill="#00ffff"/>
+                        <circle cx="48" cy="32" r="4" fill="#00ffff"/>
+                        <path d="M 35 42 Q 40 47 45 42" stroke="#00ffff" stroke-width="2" fill="none"/>
+                        <!-- Waving hand -->
+                        <rect id="wavingHand" x="65" y="50" width="15" height="8" rx="4" fill="url(#robotGradient)" style="animation: wave 1.5s ease-in-out infinite;"/>
+                        <circle cx="80" cy="54" r="4" fill="url(#robotGradient)"/>
+                    </svg>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/devxpertz?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="social-icon">
+                        <img src="https://i.postimg.cc/HkSmn1Vn/image.png" alt="Instagram" style="width: 20px; height: 20px;" />
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a onclick="showPage('home')">Home</a>
+                <a onclick="showPage('services')">Services</a>
+                <a onclick="showPage('features')">Features</a>
+                <a onclick="showPage('resources')">Resources</a>
+                <a onclick="showPage('about')">About</a>
+                <a onclick="showPage('contact')">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a onclick="showPage('services')">Web Development</a>
+                <a onclick="showPage('services')">App Development</a>
+                <a onclick="showPage('services')">Custom Solutions</a>
+                <a onclick="showPage('contact')">Consulting</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>📧 hello@devxpert.com</p>
+                <p>📱 +91 7464870444</p>
+                <p>📍 India</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 DevXpert. All rights reserved. Built with passion for the future.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentService = '';
+        
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            // Trigger reveal animations for the new page
+            setTimeout(() => {
+                document.querySelectorAll(`#${pageId} .reveal`).forEach(el => {
+                    el.classList.add('active');
+                });
+            }, 100);
+        }
+
+        // Enhanced robot eye tracking for main robot
+        document.addEventListener('mousemove', (e) => {
+            const robot = document.getElementById('mainRobot');
+            const leftPupil = document.getElementById('leftPupil');
+            const rightPupil = document.getElementById('rightPupil');
+            const robotHead = document.getElementById('robotHead');
+            const leftArm = document.getElementById('leftArm');
+            const rightArm = document.getElementById('rightArm');
+            const leftHand = document.getElementById('leftHand');
+            const rightHand = document.getElementById('rightHand');
+            
+            if (robot && leftPupil && rightPupil) {
+                const robotRect = robot.getBoundingClientRect();
+                const robotCenterX = robotRect.left + robotRect.width / 2;
+                const robotCenterY = robotRect.top + robotRect.height / 2;
+                
+                const deltaX = e.clientX - robotCenterX;
+                const deltaY = e.clientY - robotCenterY;
+                const angle = Math.atan2(deltaY, deltaX);
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                // Eye tracking
+                const pupilDistance = Math.min(4, distance / 100);
+                const pupilX = Math.cos(angle) * pupilDistance;
+                const pupilY = Math.sin(angle) * pupilDistance;
+                
+                leftPupil.setAttribute('cx', 165 + pupilX);
+                leftPupil.setAttribute('cy', 170 + pupilY);
+                rightPupil.setAttribute('cx', 215 + pupilX);
+                rightPupil.setAttribute('cy', 170 + pupilY);
+                
+                // Head rotation
+                const headRotation = (deltaX / window.innerWidth) * 15;
+                const headTilt = (deltaY / window.innerHeight) * 10;
+                robot.style.transform = `rotateY(${headRotation}deg) rotateX(${headTilt}deg)`;
+                
+                // Body tilt
+                const bodyTilt = (deltaX / window.innerWidth) * 5;
+                robot.style.transform += ` rotate(${bodyTilt}deg)`;
+                
+                // Arm movement on hover
+                if (distance < 300) {
+                    leftArm.style.transform = `rotate(${-10 + (deltaX / 50)}deg)`;
+                    rightArm.style.transform = `rotate(${10 + (deltaX / 50)}deg)`;
+                    leftHand.style.transform = `translate(${deltaX / 20}px, ${deltaY / 30}px)`;
+                    rightHand.style.transform = `translate(${deltaX / 20}px, ${deltaY / 30}px)`;
+                } else {
+                    leftArm.style.transform = '';
+                    rightArm.style.transform = '';
+                    leftHand.style.transform = '';
+                    rightHand.style.transform = '';
+                }
+            }
+        });
+
+        // Contact robot animation
+        const contactForm = document.getElementById('contactForm');
+        const contactRobot = document.getElementById('contactRobot');
+        
+        if (contactForm && contactRobot) {
+            contactForm.addEventListener('mouseenter', () => {
+                contactRobot.style.animation = 'wave 1s ease-in-out infinite';
+            });
+            
+            contactForm.addEventListener('mouseleave', () => {
+                contactRobot.style.animation = '';
+            });
+        }
+
+        // Service modal functions
+        function openServiceModal(serviceName, description) {
+            currentService = serviceName;
+            document.getElementById('modalTitle').textContent = serviceName;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('serviceModal').style.display = 'block';
+            
+            const modalButton = document.getElementById('modalButton');
+            modalButton.onclick = () => {
+                const message = `I am interested in ${serviceName}`;
+                const url = `https://wa.me/7464870444?text=${encodeURIComponent(message)}`;
+                window.open(url, '_blank');
+                closeServiceModal();
+            };
+        }
+
+        function closeServiceModal() {
+            document.getElementById('serviceModal').style.display = 'none';
+        }
+
+        // WhatsApp functions
+        function redirectToWhatsApp(serviceName) {
+            const phoneNumber = '7464870444';
+            const message = `I am interested in ${serviceName}`;
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        function openWhatsApp() {
+            const phoneNumber = '7464870444';
+            let message = 'Hello DevXpert, I want to discuss a project.';
+            
+            // Context-aware messages
+            const currentPage = document.querySelector('.page.active').id;
+            switch(currentPage) {
+                case 'services':
+                    message = 'Hello DevXpert, I want to know more about your services.';
+                    break;
+                case 'service-details':
+                    message = 'Hello DevXpert, I want detailed information about your services.';
+                    break;
+                case 'contact':
+                    message = 'Hello DevXpert, I would like to get in touch.';
+                    break;
+                case 'about':
+                    message = 'Hello DevXpert, I want to learn more about your company.';
+                    break;
+            }
+            
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            const mailtoLink = `mailto:hello@devxpert.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            
+            window.location.href = mailtoLink;
+            
+            // Show success page
+            setTimeout(() => {
+                showPage('success');
+            }, 1000);
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize reveal animations for home page
+        document.querySelectorAll('#home .reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('serviceModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeServiceModal();
+            }
+        });
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (body.classList.contains('light-theme')) {
+                body.classList.remove('light-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-theme');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+            document.getElementById('themeIcon').textContent = '☀️';
+        }
+        
+        // Enhanced robot cursor tracking for all robots
+        document.addEventListener('mousemove', (e) => {
+            document.querySelectorAll('.small-robot').forEach(robot => {
+                const robotRect = robot.getBoundingClientRect();
+                const robotCenterX = robotRect.left + robotRect.width / 2;
+                const robotCenterY = robotRect.top + robotRect.height / 2;
+                
+                const deltaX = e.clientX - robotCenterX;
+                const deltaY = e.clientY - robotCenterY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                if (distance < 200) {
+                    const angle = Math.atan2(deltaY, deltaX);
+                    const tiltX = (deltaX / window.innerWidth) * 10;
+                    const tiltY = (deltaY / window.innerHeight) * 5;
+                    
+                    robot.style.transform = `rotateY(${tiltX}deg) rotateX(${tiltY}deg) scale(1.05)`;
+                } else {
+                    robot.style.transform = '';
+                }
+            });
+        });
+        
+        // Scroll-based animations
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe all robots for scroll animations
+        document.querySelectorAll('.small-robot').forEach(robot => {
+            robot.style.opacity = '0';
+            robot.style.transform = 'translateY(30px)';
+            robot.style.transition = 'all 0.6s ease';
+            scrollObserver.observe(robot);
+        });
+
+        // Initialize page
+        showPage('home');
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98028fa39163cf40',t:'MTc1ODA0ODc0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
